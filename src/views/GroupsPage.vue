@@ -23,7 +23,7 @@
         </thead>
         <tbody>
             <tr v-for="team in groupActif.teams" :key="team.id">
-                <td scope="row"><img src="" alt=""></td>
+                <td scope="row"><img :src="team.logo" alt="" class="logo-team-admin"></td>
                 <td>{{team.name}}</td>
                 <td></td>
                 <td>{{team.matchsPlayed}}</td>
@@ -34,21 +34,33 @@
             </tr>
         </tbody>
     </table>
+    <h1 class="special-font">Les matchs</h1>
+    <hr class="mb-3">
+    <MatchPreview v-for="match in matchs" :key="match.id" :match="match"/>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import { mapState } from 'vuex'
+import MatchPreview from '@/components/MatchPreview.vue'
 
 export default {
+  components: {
+    MatchPreview
+  },
   data () {
     return {
       groups: [],
       groupActif: []
     }
   },
+  computed: mapState({
+    matchs: state => state.matchs.GroupMatchs
+  }),
   created () {
     this.find()
+    this.$store.dispatch('matchs/findByGroup', { id: 1 })
   },
   methods: {
     find () {
@@ -62,6 +74,7 @@ export default {
     onChangeGroup (event) {
       const pos = event.target.value - 1
       this.groupActif = this.groups[pos]
+      this.$store.dispatch('matchs/findByGroup', { id: event.target.value })
     }
   }
 }

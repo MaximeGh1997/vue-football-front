@@ -25,11 +25,11 @@ export default {
   }),
   created () {
     this.find()
-    this.$store.dispatch('comments/findByMatch', { id: 136 })
+    this.$store.dispatch('comments/findByMatch', { id: this.$route.params.id })
   },
   methods: {
     find () {
-      axios.get('http://localhost:8000/api/matchs/' + 136)
+      axios.get('http://localhost:8000/api/matchs/' + this.$route.params.id)
         .then(response => {
           this.match = response.data
         })
