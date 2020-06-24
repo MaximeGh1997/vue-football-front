@@ -47,6 +47,16 @@ const routes = [
     path: '/matchs/:id',
     name: 'MatchShow',
     component: () => import(/* webpackChunkName: "about" */ '../views/MatchShow.vue')
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import(/* webpackChunkName: "about" */ '../views/LoginPage.vue')
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import(/* webpackChunkName: "about" */ '../views/RegisterPage.vue')
   }
 ]
 

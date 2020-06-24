@@ -31,6 +31,13 @@ const actions = {
     Vue.axios.get('users/' + payload.id + '/comments')
       .then(response => { commit('SAVE_USER_COMMENTS', response.data['hydra:member']) })
       .catch(error => console.log(error.response))
+  },
+
+  postComment ({ commit }, payload) {
+    console.log(payload)
+    Vue.axios.post('comments', payload)
+      .then(response => console.log(response))
+      .catch(error => console.log(error))
   }
 }
 

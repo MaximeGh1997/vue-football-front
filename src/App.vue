@@ -3,12 +3,25 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/teams">Teams</router-link>
+      <button @click="handleLogout">Déconnexion</button>
     </div>
     <transition name="slide-fade" mode="out-in">
       <router-view/>
     </transition>
   </div>
 </template>
+
+<script>
+import authAPI from './services/authAPI'
+
+export default {
+  methods: {
+    handleLogout () {
+      authAPI.logout()
+    }
+  }
+}
+</script>
 
 <style>
 #app {
