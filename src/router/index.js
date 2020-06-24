@@ -20,13 +20,28 @@ const routes = [
   },
   {
     path: '/teams/:id',
-    name: 'Team',
+    name: 'TeamShow',
     component: () => import(/* webpackChunkName: "about" */ '../views/TeamShow.vue')
+  },
+  {
+    path: '/stadiums',
+    name: 'Stadiums',
+    component: () => import(/* webpackChunkName: "about" */ '../views/StadiumsPage.vue')
+  },
+  {
+    path: '/stadiums/:id',
+    name: 'StadiumShow',
+    component: () => import(/* webpackChunkName: "about" */ '../views/StadiumShow.vue')
   },
   {
     path: '/groups',
     name: 'Groups',
     component: () => import(/* webpackChunkName: "about" */ '../views/GroupsPage.vue')
+  },
+  {
+    path: '/stages',
+    name: 'Stages',
+    component: () => import(/* webpackChunkName: "about" */ '../views/StagesPage.vue')
   },
   {
     path: '/matchs/:id',
