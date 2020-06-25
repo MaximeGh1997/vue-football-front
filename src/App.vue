@@ -18,6 +18,7 @@ export default {
   methods: {
     handleLogout () {
       authAPI.logout()
+      this.$router.push({ path: '/login' })
     }
   }
 }

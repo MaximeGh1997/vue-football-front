@@ -2,7 +2,8 @@
 <div class="container h-100 pt-5">
     <div class="container-fluid w-50 login-bloc">
         <div v-if="error" class="alert alert-danger">{{error}}</div>
-        <h3 class="h3 mb-3 font-weight-normal text-center">Connectez-vous</h3>
+        <div v-if="token == null">
+          <h3 class="h3 mb-3 font-weight-normal text-center">Connectez-vous</h3>
         <form @submit="postLogin">
             <div className="form-group">
                 <label htmlFor="usersame">Nom d'utilisateur</label>
@@ -31,36 +32,59 @@
                 </button>
             </div>
         </form>
+        </div>
+        <div v-else>
+          <p>Vous êtes déjà connecter, <a href="" @click="handleLogout">Se déconnecter</a></p>
+        </div>
     </div>
 </div>
 </template>
 
 <script>
+import axios from 'axios'
 import authAPI from '../services/authAPI'
+
+const token = window.localStorage.getItem('authToken')
 
 export default {
   data () {
     return {
       username: '',
       password: '',
-      error: null
+      error: null,
+      token: token
     }
   },
   methods: {
-    async postLogin (e) {
+    postLogin (e) {
       e.preventDefault()
-      try {
-        authAPI.authenticate({
-          username: this.username,
-          password: this.password
+      axios.post('http://localhost:8000/api/login_check', {
+        username: this.username,
+        password: this.password
+      })
+        .then(response => {
+          if (response.status === 200) {
+            this.$router.push({ path: '/' })
+          }
+          return response.data.token
         })
-        this.error = null
-        this.username = ''
-        this.password = ''
-      } catch (error) {
-        this.error = 'Aucun compte ne possède cette adresse e-mail ou les informations ne correspondent pas'
-        console.log(error)
-      }
+        .then(token => {
+          window.localStorage.setItem('authToken', token)
+          axios.defaults.headers.Authorization = 'Bearer ' + token
+          console.log(token)
+          return true
+        })
+        .catch(error => {
+          console.log(error)
+          if (error) {
+            this.error = 'Nom d\'utilisateur ou mot de passe incorrect !'
+          }
+        })
+    },
+
+    handleLogout () {
+      authAPI.logout()
+      this.$router.push({ path: '/' })
     }
   }
 }

@@ -25,6 +25,7 @@
             <div class="form-group">
                 <label for="regsitration_passwordConfirm" class="required">Confirmation du mot de passe</label>
                 <input v-model="passwordConfirm" type="password" id="registration_passwordConfirm" required="required" placeholder="Confirmation du mot de passe" class="form-control">
+                <div v-if="error" class="alert alert-danger">{{error}}</div>
             </div>
             <button type="submit" class="btn btn-info">Confirmez l'inscription</button>
         </form>
@@ -62,11 +63,16 @@ export default {
           email: this.email,
           password: this.password
         })
-        this.firstname = ''
-        this.lastname = ''
-        this.username = ''
-        this.email = ''
-        this.password = ''
+          .then(response => {
+            if (response.status === 201) {
+              this.$router.push({ path: '/login' })
+            }
+            this.firstname = ''
+            this.lastname = ''
+            this.username = ''
+            this.email = ''
+            this.password = ''
+          })
       } catch ({ response }) {
         console.log(response.data)
       }

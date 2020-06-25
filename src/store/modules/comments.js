@@ -15,6 +15,9 @@ const mutations = {
   SAVE_MATCH_COMMENTS (state, comments) {
     state.MatchComments = comments
   },
+  ADD_MATCH_COMMENTS (state, comment) {
+    state.MatchComments.push(comment)
+  },
   SAVE_USER_COMMENTS (state, comments) {
     state.UserComments = comments
   }
@@ -34,10 +37,9 @@ const actions = {
   },
 
   postComment ({ commit }, payload) {
-    console.log(payload)
     Vue.axios.post('comments', payload)
-      .then(response => console.log(response))
-      .catch(error => console.log(error))
+      .then(response => { commit('ADD_MATCH_COMMENTS', response.data) })
+      .catch(error => console.log(error.response))
   }
 }
 
