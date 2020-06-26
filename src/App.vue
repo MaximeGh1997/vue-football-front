@@ -1,8 +1,8 @@
 <template>
   <div id="app">
       <div id="nav" class="navbar navbar-expand-md nav-front">
-        <router-link to="/">
-          <img class="navbar-brand logo" :src="logo" width="35" height="50" alt="">
+        <router-link to="/" class="navbar-brand logo">
+          <img :src="logo" width="35" height="40" alt="">
         </router-link>
         <div @click="openMenu" class="burger mr-auto d-block d-md-none">
           <span></span>
@@ -36,6 +36,7 @@
       </div>
 
       <div id="nav-burger">
+        <i @click="openMenu" class="fas fa-times fa-4x close"></i>
         <ul>
             <router-link class="nav-item nav-link" to="/">Accueil</router-link>
             <router-link class="nav-item nav-link" to="/teams">Equipes</router-link>
@@ -163,6 +164,124 @@ export default {
     box-shadow: 1px 1px 3px rgba(21, 78, 88, 0.7);
 }
 
+.burger{
+    width: 35px;
+    height: 30px;
+    cursor: pointer;
+    position:relative;
+    left: -35px;
+}
+
+.burger:hover span{
+    background-color: rgb(21, 85, 97);
+}
+
+.burger.active:hover span{
+    background-color: rgb(255, 98, 98);
+}
+
+.burger span{
+    width: 100%;
+    height: 5px;
+    background-color: white;
+    margin-bottom: 8px;
+    display: block;
+    transition: all 0.3s;
+}
+
+.burger.active span:nth-child(1){
+    margin-bottom: 0px;
+    margin-top: 15px;
+    transform: rotate(45deg);
+}
+
+.burger.active span:nth-child(2){
+    display: none;
+}
+
+.burger.active span:nth-child(3){
+    margin-bottom: 0px;
+    margin-top: -5px;
+    transform: rotate(-45deg);
+}
+
+.close{
+  cursor: pointer;
+  position: absolute;
+  left: 40px;
+  margin-top: 15px;
+  color: rgb(209, 39, 39);
+  transition: color 0.2s;
+}
+
+.close:hover{
+  color: rgb(146, 8, 8);
+}
+
+#nav-burger{
+    width: 100%;
+    height: 100%;
+    background-image: url(./assets/body_background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
+    z-index: 1000;
+    transition: all 0.5s;
+    top:-100%;
+}
+
+#nav-burger.active{
+    top:0%;
+}
+
+#nav-burger ul{
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+}
+
+#nav-burger ul a{
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    width: auto;
+    transition: all 0.4s;
+    text-shadow: 1px 1px 1px rgba(16, 76, 87, 0.753);
+}
+
+#nav-burger ul a:hover{
+    color:  rgb(21, 85, 97);
+    text-shadow: none;
+}
+
+#nav-burger #links{
+    min-width: 250px;
+    height: auto;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#nav-burger #links a{
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    width: auto;
+    transition: all 0.4s;
+    text-shadow: 1px 1px 1px rgba(16, 76, 87, 0.753);
+    float:left;
+}
+
+#nav-burger #links a:hover{
+    color:  rgb(21, 85, 97);
+    text-shadow: none;
+}
+
 .footer-front{
     background-image: url(./assets/body_background.jpg);
     font-family: 'Ubuntu', sans-serif;
@@ -199,6 +318,28 @@ export default {
   100% {
     transform: scale(1);
   }
+}
+
+@media all and (max-width: 1000px) {
+    .nav-front a{
+        font-size: 14px;
+    }
+
+    .nav-back{
+        line-height: 0px;
+    }
+}
+
+@media all and (max-width: 768px) {
+    .logo{
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .nav-front{
+        box-shadow: none;
+    }
 }
 
 </style>

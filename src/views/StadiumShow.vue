@@ -53,3 +53,49 @@ export default {
   }
 }
 </script>
+
+<style>
+#stades-show{
+    min-height: 100vh;
+}
+
+.logo-stade{
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+}
+
+.stade-icon img{
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+}
+
+.info-stade{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.info-stade ul{
+    list-style:none;
+}
+
+.info-stade ul li{
+    text-align: center;
+    line-height: 50px;
+    font-size: 18px;
+}
+
+/** STADES SHOW **/
+@media all and (max-width: 1000px) {
+    .team-title{
+        font-size: 4em;
+    }
+  }
+
+  @media all and (max-width: 500px) {
+    .team-title{
+        font-size: 2.5em;
+    }
+  }
+</style>
