@@ -23,11 +23,6 @@ html,body{
 
 /** NAV **/
 
-.nav-front{
-    background-image: url(/uploads/body_background.jpg);
-    box-shadow: 1px 1px 3px rgba(21, 78, 88, 0.7);
-}
-
 .nav-front a{
     font-family: 'Ubuntu', sans-serif;
     color: white;
@@ -303,13 +298,6 @@ html,body{
 
 /** FOOTER **/
 
-.footer-front{
-    background-image: url(../assets/body_background.jpg);
-    font-family: 'Ubuntu', sans-serif;
-    color: white;
-    text-shadow: 1px 1px 1px rgba(16, 76, 87, 0.753);
-}
-
 .footer-front a{
     color: white;
     transition: all 0.4s;
@@ -576,15 +564,6 @@ html,body{
 }
 
 /** PAGE MATCH SHOW **/
-
-.match-cover{
-    margin-top: 65px;
-    height: 400px;
-    background-image: url(/uploads/match-background2.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-}
 
 .match-cont{
     padding-top: 100px;

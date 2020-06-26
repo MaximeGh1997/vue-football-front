@@ -2,7 +2,7 @@
   <div id="app">
       <div id="nav" class="navbar navbar-expand-md nav-front">
         <router-link to="/">
-          <img class="navbar-brand logo" src="/assets/UEFA_Euro_2020_Logo_White.svg.png" width="35" height="40" alt="">
+          <img class="navbar-brand logo" :src="logo" width="35" height="50" alt="">
         </router-link>
         <div @click="openMenu" class="burger mr-auto d-block d-md-none">
           <span></span>
@@ -19,7 +19,7 @@
         <ul class="nav ml-auto">
          <li v-if="token !== null" class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="accountDropdownLink">
-               <img src="" alt="avatar de" class="avatar-mini">
+               <img :src="unknow" alt="avatar de" class="avatar-mini">
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
                <router-link class="dropdown-item" to="">Mon profil</router-link>
@@ -125,7 +125,9 @@ export default {
   data () {
     return {
       token: token,
-      roles: roles
+      roles: roles,
+      logo: require('./assets/UEFA_Euro_2020_Logo_White.svg.png'),
+      unknow: require('./assets/unknow.jpg')
     }
   },
   methods: {
@@ -154,6 +156,18 @@ export default {
 #nav a.router-link-exact-active {
   color: rgba(16, 76, 87, 0.753);
   text-shadow: none;
+}
+
+.nav-front{
+    background-image: url(./assets/body_background.jpg);
+    box-shadow: 1px 1px 3px rgba(21, 78, 88, 0.7);
+}
+
+.footer-front{
+    background-image: url(./assets/body_background.jpg);
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    text-shadow: 1px 1px 1px rgba(16, 76, 87, 0.753);
 }
 
 .slide-fade-enter-active{

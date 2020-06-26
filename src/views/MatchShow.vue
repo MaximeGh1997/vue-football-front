@@ -127,3 +127,13 @@ export default {
   }
 }
 </script>
+
+<style>
+.match-cover{
+    height: 400px;
+    background-image: url(../assets/match-background2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+</style>
