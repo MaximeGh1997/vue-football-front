@@ -145,7 +145,7 @@ html,body{
     position: fixed;
     z-index: 1000;
     transition: all 0.5s;
-    transform: translateY(-100%);
+    transform: translateY(-200%);
 }
 
 #nav-burger.active{
@@ -304,7 +304,7 @@ html,body{
 /** FOOTER **/
 
 .footer-front{
-    background-image: url(/uploads/body_background.jpg);
+    background-image: url(../assets/body_background.jpg);
     font-family: 'Ubuntu', sans-serif;
     color: white;
     text-shadow: 1px 1px 1px rgba(16, 76, 87, 0.753);

@@ -1,14 +1,15 @@
 <template>
-  <div class="ranking">
-    <h1>Classements & Résultats</h1>
+  <div class="container mb-5">
+    <h1 class="special-font mt-5">Classements & Résultats</h1>
+    <p>Sélectionnez un groupe</p>
     <form class="form-group">
-        <select class="custom-select" @change="onChangeGroup($event)">
+        <select class="custom-select form-control" @change="onChangeGroup($event)">
             <option v-for="group in groups" :key="group.id" :value="group.id">Groupe {{group.name}}</option>
         </select>
     </form>
-    <hr>
-    <h1>Groupe {{groupActif.name}}</h1>
-    <table class="table table-borderless">
+    <hr class="mt-3 mb-3">
+    <h1 class="special-font">Groupe {{groupActif.name}}</h1>
+    <table class="table table-borderless mb-5">
         <thead>
             <tr>
                 <th scope="col" class="border-0"></th>
@@ -34,8 +35,7 @@
             </tr>
         </tbody>
     </table>
-    <h1 class="special-font">Les matchs</h1>
-    <hr class="mb-3">
+    <h1 class="special-font mb-3">Les matchs</h1>
     <MatchPreview v-for="match in matchs" :key="match.id" :match="match"/>
   </div>
 </template>

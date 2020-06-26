@@ -11,9 +11,9 @@
                         </div>
                 </div>
                 <div v-else class="col-4 align-self-center">
-                        <div class="row justify-content-center">Groupe {{match.groupName.name}}</div>
-                        <div class="row justify-content-center">{{match.date.date | formatDate}}</div>
-                        <div class="row justify-content-center">{{match.stade.name}}</div>
+                        <div class="row justify-content-center light-text">Groupe {{match.groupName.name}}</div>
+                        <div class="row justify-content-center light-text">{{match.date.date | formatDate}}</div>
+                        <div class="row justify-content-center light-text">{{match.stade.name}}</div>
                 </div>
                 <div class="col-4 col-sm-2 align-self-center text-center"><img :src="match.team2.logo" alt="" class="logo-team"></div>
                 <div class="col-2 special-font align-self-center d-none d-sm-block">{{match.team2.name}}</div>
@@ -32,5 +32,18 @@ export default {
 </script>
 
 <style>
+a{
+    text-decoration: none;
+    color: black;
+}
 
+a:hover{
+    text-decoration: none;
+    color: black;
+}
+
+.light-text{
+    font-size: 14px;
+    color: gray;
+}
 </style>

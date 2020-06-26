@@ -1,11 +1,11 @@
 <template>
-<div class="container h-100 pt-5">
-    <div class="container-fluid w-50 login-bloc">
+<div class="container login-cont pt-5">
+    <div class="container-fluid w-50">
         <div v-if="error" class="alert alert-danger">{{error}}</div>
         <div v-if="token == null">
           <h3 class="h3 mb-3 font-weight-normal text-center">Connectez-vous</h3>
         <form @submit="postLogin">
-            <div className="form-group">
+            <div class="form-group">
                 <label htmlFor="usersame">Nom d'utilisateur</label>
                 <input
                     v-model="username"
@@ -13,7 +13,7 @@
                     placeholder="Nom d'utilisateur"
                     name="username"
                     id="username"
-                    className="form-control"/>
+                    class="form-control"/>
             </div>
             <div className="form-group">
                 <label htmlFor="password">Mot de passe</label>
@@ -23,11 +23,11 @@
                     placeholder="Mot de passe"
                     id="password"
                     name="password"
-                    className="form-control"/>
+                    class="form-control"/>
             </div>
-            <div className="form-group">
+            <div class="form-group text-center">
                 <button
-                className="btn btn-success">
+                class="mt-3 btn btn-success">
                 Connexion
                 </button>
             </div>
@@ -91,5 +91,7 @@ export default {
 </script>
 
 <style>
-
+.login-cont{
+  min-height: 100vh;
+}
 </style>

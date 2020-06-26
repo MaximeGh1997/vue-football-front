@@ -1,15 +1,14 @@
 <template>
-  <div class="ranking">
-    <h1>Phase finale</h1>
+  <div class="container pt-5 mb-5">
+    <h1 class="special-font mb-3">Phase finale</h1>
     <form class="form-group">
-        <select class="custom-select" @change="onChangeStage($event)">
+        <select class="custom-select form-control" @change="onChangeStage($event)">
             <option v-for="stage in stages" :key="stage.id" :value="stage.id">{{stage.name}}</option>
         </select>
     </form>
-    <hr>
+    <hr class="mb-3">
 
     <h1 class="special-font">Les matchs</h1>
-    <hr class="mb-3">
     <MatchPreview v-for="match in matchs" :key="match.id" :match="match"/>
   </div>
 </template>

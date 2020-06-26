@@ -20,7 +20,6 @@ const mutations = {
     state.StageMatchs = matchs
   },
   SAVE_MATCH (state, match) {
-    console.log('ICI')
     state.Match = match
   }
 }
