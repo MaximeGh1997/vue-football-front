@@ -4,7 +4,7 @@
         <div v-if="error" class="alert alert-danger">{{error}}</div>
         <div v-if="token == null">
           <h3 class="h3 mb-3 font-weight-normal text-center">Connectez-vous</h3>
-        <form @submit="postLogin">
+        <form @submit="login">
             <div class="form-group">
                 <label htmlFor="usersame">Nom d'utilisateur</label>
                 <input
@@ -42,7 +42,6 @@
 
 <script>
 import axios from 'axios'
-import authAPI from '../services/authAPI'
 
 const token = window.localStorage.getItem('authToken')
 
@@ -82,8 +81,19 @@ export default {
         })
     },
 
+    login (e) {
+      e.preventDefault()
+      this.$store.dispatch('authentication/retrieveToken', {
+        username: this.username,
+        password: this.password
+      })
+        .then(response => {
+          this.$router.push({ path: '/' })
+        })
+    },
+
     handleLogout () {
-      authAPI.logout()
+      this.$store.dispatch('authentication/destroyToken')
       this.$router.push({ path: '/' })
     }
   }

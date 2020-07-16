@@ -43,7 +43,8 @@ a:hover{
 }
 
 .light-text{
-    font-size: 14px;
+    font-size: 13px;
     color: gray;
+    font-weight: light;
 }
 </style>

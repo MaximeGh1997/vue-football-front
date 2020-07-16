@@ -29,3 +29,15 @@ export default {
   }
 }
 </script>
+
+<style>
+#stades-show{
+    min-height: 100vh;
+}
+
+.logo-stade{
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+}
+</style>

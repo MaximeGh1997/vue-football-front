@@ -9,7 +9,7 @@
             <div class="col-3 col-lg-2 align-self-center text-right d-none d-lg-block">{{match.team1.name}}</div>
             <div class="col-auto col-lg-2 align-self-center text-left"><img :src="match.team1.logo" alt="" class="logo-team"></div>
             <div class="col-auto col-lg-4 align-self-center text-center">
-                <div v-if="match.isPlayed = true">
+                <div v-if="match.isPlayed">
                   {{match.scoreT1}} - {{match.scoreT2}}
                 </div>
                 <div v-else id="date">
@@ -50,7 +50,7 @@
 
     <h3 class="special-font">Avis & commentaires</h3>
     <hr>
-    <form v-if="token !== null" name="comment" method="post" @submit="createComment">
+    <form v-if="loggedIn" name="comment" method="post" @submit="createComment">
       <div v-if="match.isPlayed" class="rating" name="rating">
         <i @click="handleClick" v-for="i in 5" :key="i" :data-value="i" class="fa fa-star"></i>
       </div>
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import Comment from '@/components/Comment.vue'
 import jwtDecode from 'jwt-decode'
 
@@ -87,10 +87,15 @@ export default {
       token: token
     }
   },
-  computed: mapState({
-    comments: state => state.comments.MatchComments,
-    match: state => state.matchs.Match
-  }),
+  computed: {
+    ...mapState({
+      comments: state => state.comments.MatchComments,
+      match: state => state.matchs.Match
+    }),
+    ...mapGetters('authentication', {
+      loggedIn: 'loggedIn'
+    })
+  },
   created () {
     this.$store.dispatch('matchs/find', { id: this.$route.params.id })
     this.$store.dispatch('comments/findByMatch', { id: this.$route.params.id })

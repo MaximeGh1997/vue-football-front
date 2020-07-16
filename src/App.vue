@@ -17,13 +17,13 @@
           <router-link class="nav-item nav-link" to="/stages">Phase finale</router-link>
         </div>
         <ul class="nav ml-auto">
-         <li v-if="token !== null" class="nav-item dropdown">
+         <li v-if="loggedIn" class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="accountDropdownLink">
                <img :src="unknow" alt="avatar de" class="avatar-mini">
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
                <router-link class="dropdown-item" to="">Mon profil</router-link>
-               <a v-if="roles.includes('ROLE_ADMIN')" href="http://www.symfoot.maxime-gh.com/admin/matchs" class="dropdown-item">Administration</a>
+               <a href="http://www.symfoot.maxime-gh.com/admin/matchs" class="dropdown-item">Administration</a>
                <div class="dropdown-divider"></div>
                <a href="" class="dropdown-item" @click="handleLogout">Déconnexion</a>
             </div>
@@ -44,7 +44,7 @@
             <router-link class="nav-item nav-link" to="/groups">Classements & Résultats</router-link>
             <router-link class="nav-item nav-link" to="/stages">Phase finale</router-link>
         </ul>
-        <div v-if="token == null" id="links">
+        <div v-if="!loggedIn" id="links">
             <router-link class="nav-item nav-link" to="/register">S'inscrire</router-link>
             <router-link class="nav-item nav-link" to="/login">Se connecter</router-link>
         </div>
@@ -112,28 +112,21 @@
 </template>
 
 <script>
-import authAPI from './services/authAPI'
-import jwtDecode from 'jwt-decode'
-
-const token = window.localStorage.getItem('authToken')
-var roles = null
-if (token != null) {
-  const jwtData = jwtDecode(token)
-  roles = jwtData.roles
-}
+import { mapGetters } from 'vuex'
 
 export default {
   data () {
     return {
-      token: token,
-      roles: roles,
       logo: require('./assets/UEFA_Euro_2020_Logo_White.svg.png'),
       unknow: require('./assets/unknow.jpg')
     }
   },
+  computed: mapGetters('authentication', {
+    loggedIn: 'loggedIn'
+  }),
   methods: {
     handleLogout () {
-      authAPI.logout()
+      this.$store.dispatch('authentication/destroyToken')
       this.$router.push({ path: '/login' })
     },
     openMenu () {

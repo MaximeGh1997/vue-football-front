@@ -9,7 +9,7 @@
     </form>
     <hr class="mt-3 mb-3">
     <h1 class="special-font">Groupe {{groupActif.name}}</h1>
-    <table class="table table-borderless mb-5">
+    <table class="table mb-5">
         <thead>
             <tr>
                 <th scope="col" class="border-0"></th>
@@ -25,13 +25,13 @@
         <tbody>
             <tr v-for="team in groupActif.teams" :key="team.id">
                 <td scope="row"><img :src="team.logo" alt="" class="logo-team-admin"></td>
-                <td>{{team.name}}</td>
+                <td class="special-font">{{team.name}}</td>
                 <td></td>
-                <td>{{team.matchsPlayed}}</td>
-                <td>{{team.groupWins}}</td>
-                <td>{{team.groupDraws}}</td>
-                <td>{{team.groupDefeats}}</td>
-                <td>{{team.points}}</td>
+                <td class="special-font">{{team.matchsPlayed}}</td>
+                <td class="special-font">{{team.groupWins}}</td>
+                <td class="special-font">{{team.groupDraws}}</td>
+                <td class="special-font">{{team.groupDefeats}}</td>
+                <td class="special-font">{{team.points}}</td>
             </tr>
         </tbody>
     </table>
