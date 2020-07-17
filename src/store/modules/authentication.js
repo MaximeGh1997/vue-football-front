@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import jwtDecode from 'jwt-decode'
 
 Vue.use(VueAxios, axios)
 
@@ -13,6 +14,18 @@ const state = () => ({
 const getters = {
   loggedIn: (state) => {
     return state.token !== null
+  },
+  decodeToken: (state) => {
+    if (state.token !== null) {
+      const jwtData = jwtDecode(state.token)
+      return {
+        decodeToken: jwtData
+      }
+    } else {
+      return {
+        decodeToken: false
+      }
+    }
   }
 }
 

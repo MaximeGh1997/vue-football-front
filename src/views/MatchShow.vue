@@ -72,9 +72,6 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import Comment from '@/components/Comment.vue'
-import jwtDecode from 'jwt-decode'
-
-const token = window.localStorage.getItem('authToken')
 
 export default {
   components: {
@@ -84,7 +81,7 @@ export default {
     return {
       content: '',
       rating: null,
-      token: token
+      token: this.$store.getters['authentication/decodeToken']
     }
   },
   computed: {
@@ -93,7 +90,8 @@ export default {
       match: state => state.matchs.Match
     }),
     ...mapGetters('authentication', {
-      loggedIn: 'loggedIn'
+      loggedIn: 'loggedIn',
+      decodeToken: 'decodeToken'
     })
   },
   created () {
@@ -103,20 +101,16 @@ export default {
   methods: {
     createComment (e) {
       e.preventDefault()
-
-      const jwtData = jwtDecode(this.token)
-      var authorId = jwtData.id
-
       this.$store.dispatch('comments/postComment', {
         content: this.content,
         rating: this.rating,
         matchNbr: '/api/matchs/' + this.match.id,
-        author: '/api/users/' + authorId
+        author: '/api/users/' + this.token.decodeToken.id
       })
       const ratingBox = document.querySelectorAll('.rating')[0]
       ratingBox.classList.remove('active')
       this.content = ''
-      this.rating = ''
+      this.rating = null
     },
     handleClick (e) {
       const ratingBox = document.querySelectorAll('.rating')[0]

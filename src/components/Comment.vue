@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div v-if="comment.author.id == userId" class="row justify-content-start justify-content-md-center mt-2 mb-2">
+  <div v-if="comment.author.id == decodeToken.decodeToken.id" class="row justify-content-start justify-content-md-center mt-2 mb-2">
     <div class="col-auto align-self-center text-center">
       <img src="../assets/unknow.jpg" :alt="comment.author.username" class="avatar-medium">
     </div>
@@ -26,6 +26,7 @@
 
 <script>
 import jwtDecode from 'jwt-decode'
+import { mapGetters } from 'vuex'
 
 const token = window.localStorage.getItem('authToken')
 var userId = null
@@ -43,7 +44,10 @@ export default {
       token: token,
       userId: userId
     }
-  }
+  },
+  computed: mapGetters('authentication', {
+    decodeToken: 'decodeToken'
+  })
 }
 </script>
 

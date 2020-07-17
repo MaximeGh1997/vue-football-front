@@ -68,11 +68,6 @@ html,body{
     object-fit: cover;
 }
 
-.dropdown-menu{
-    background-image: url(/uploads/body_background.jpg);
-    height: auto;
-}
-
 .dropdown-menu a{
     margin: 0 auto;
     padding: 0;
