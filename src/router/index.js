@@ -57,6 +57,11 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: () => import(/* webpackChunkName: "about" */ '../views/RegisterPage.vue')
+  },
+  {
+    path: '/users/:id',
+    name: 'UserShow',
+    component: () => import(/* webpackChunkName: "about" */ '../views/UserShow.vue')
   }
 ]
 

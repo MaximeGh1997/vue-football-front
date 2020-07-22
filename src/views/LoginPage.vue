@@ -2,7 +2,7 @@
 <div class="container login-cont pt-5">
     <div class="container-fluid w-50">
         <div v-if="error" class="alert alert-danger">{{error}}</div>
-        <div v-if="token == null">
+        <div v-if="!loggedIn">
           <h3 class="h3 mb-3 font-weight-normal text-center">Connectez-vous</h3>
         <form @submit="login">
             <div class="form-group">
@@ -41,46 +41,20 @@
 </template>
 
 <script>
-import axios from 'axios'
-
-const token = window.localStorage.getItem('authToken')
+import { mapGetters } from 'vuex'
 
 export default {
   data () {
     return {
       username: '',
       password: '',
-      error: null,
-      token: token
+      error: null
     }
   },
+  computed: mapGetters('authentication', {
+    loggedIn: 'loggedIn'
+  }),
   methods: {
-    postLogin (e) {
-      e.preventDefault()
-      axios.post('http://localhost:8000/api/login_check', {
-        username: this.username,
-        password: this.password
-      })
-        .then(response => {
-          if (response.status === 200) {
-            this.$router.push({ path: '/' })
-          }
-          return response.data.token
-        })
-        .then(token => {
-          window.localStorage.setItem('authToken', token)
-          axios.defaults.headers.Authorization = 'Bearer ' + token
-          console.log(token)
-          return true
-        })
-        .catch(error => {
-          console.log(error)
-          if (error) {
-            this.error = 'Nom d\'utilisateur ou mot de passe incorrect !'
-          }
-        })
-    },
-
     login (e) {
       e.preventDefault()
       this.$store.dispatch('authentication/retrieveToken', {
@@ -94,7 +68,6 @@ export default {
 
     handleLogout () {
       this.$store.dispatch('authentication/destroyToken')
-      this.$router.push({ path: '/' })
     }
   }
 }

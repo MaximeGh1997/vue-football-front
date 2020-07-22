@@ -16,6 +16,7 @@ const mutations = {
     state.MatchComments = comments
   },
   ADD_MATCH_COMMENTS (state, comment) {
+    console.log(comment)
     state.MatchComments.push(comment)
   },
   SAVE_USER_COMMENTS (state, comments) {

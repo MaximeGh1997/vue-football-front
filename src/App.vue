@@ -22,7 +22,7 @@
                <img :src="unknow" alt="avatar de" class="avatar-mini">
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
-               <router-link class="dropdown-item" to="">Mon profil</router-link>
+               <router-link class="dropdown-item" :to="{name: 'UserShow', params: { id:decodeToken.decodeToken.id }}">Mon profil</router-link>
                <a v-if="decodeToken.decodeToken.roles.includes('ROLE_ADMIN')" href="http://www.symfoot.maxime-gh.com/admin/matchs" class="dropdown-item">Administration</a>
                <div class="dropdown-divider"></div>
                <a href="" class="dropdown-item" @click="handleLogout">Déconnexion</a>

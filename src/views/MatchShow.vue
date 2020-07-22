@@ -56,7 +56,7 @@
       </div>
       <div id="comment">
         <div class="form-group">
-          <textarea id="comment_content" v-model="content" placeholder="Echangez sur ce match !" class="form-control">
+          <textarea id="comment_content" v-model="content" placeholder="Echangez sur ce match !" class="form-control" required>
           </textarea>
           <button type="submit" class="btn btn-info mt-3">Envoyer</button>
         </div>
@@ -107,8 +107,10 @@ export default {
         matchNbr: '/api/matchs/' + this.match.id,
         author: '/api/users/' + this.token.decodeToken.id
       })
-      const ratingBox = document.querySelectorAll('.rating')[0]
-      ratingBox.classList.remove('active')
+      if (this.match.isPlayed) {
+        const ratingBox = document.querySelectorAll('.rating')[0]
+        ratingBox.classList.remove('active')
+      }
       this.content = ''
       this.rating = null
     },
