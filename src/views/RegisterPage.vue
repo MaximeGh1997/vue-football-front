@@ -27,6 +27,13 @@
                 <input v-model="passwordConfirm" type="password" id="registration_passwordConfirm" required="required" placeholder="Confirmation du mot de passe" class="form-control">
                 <div v-if="error" class="alert alert-danger">{{error}}</div>
             </div>
+            <!--<div class="form-group">
+              <label for="registration_picture">Image de profil (jpg,png,gif)</label>
+              <div class="custom-file">
+                <input v-on:change="handleFileUpload()" type="file" id="registration_picture" ref="file" class="custom-file-input" accept="image/png, image/jpeg, image/gif">
+                <label for="registration_picture" class="custom-file-label"></label>
+              </div>
+            </div>-->
             <button type="submit" class="btn btn-info">Confirmez l'inscription</button>
         </form>
     </div>
@@ -44,10 +51,15 @@ export default {
       email: '',
       password: '',
       passwordConfirm: '',
+      file: '',
       error: null
     }
   },
   methods: {
+    handleFileUpload () {
+      this.file = this.$refs.file.files[0]
+      console.log(this.file.name)
+    },
     registration (e) {
       e.preventDefault()
       if (this.password !== this.passwordConfirm) {

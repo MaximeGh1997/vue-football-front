@@ -1,6 +1,6 @@
 <template>
 <div class="container login-cont pt-5">
-    <div class="container-fluid w-50">
+    <div class="container-fluid w-50" id="login-content">
         <div v-if="error" class="alert alert-danger">{{error}}</div>
         <div v-if="!loggedIn">
           <h3 class="h3 mb-3 font-weight-normal text-center">Connectez-vous</h3>
@@ -75,6 +75,9 @@ export default {
 
 <style>
 .login-cont{
-  min-height: 100vh;
+  min-height: 80vh;
+}
+#login-content{
+  padding-top: 10vh;
 }
 </style>

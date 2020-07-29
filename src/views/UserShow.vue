@@ -13,7 +13,7 @@
                 <!--<div class="alert alert-{{ label }}">
                     <p>{{ message | raw }}</p>
                 </div>-->
-                <a href="#" class="btn btn-info d-block d-md-inline-block mr-2 mb-2">Modifier mon profil</a>
+                <router-link class="btn btn-info d-block d-md-inline-block mr-2 mb-2" to="/profile/edit">Modifier mon profil</router-link>
                 <a href="#" class="btn btn-warning d-block d-md-inline-block mr-2 mb-2">Modifier mon mot de passe</a>
                 <a href="#" class="btn btn-danger d-block d-md-inline-block mb-2">Supprimer mon image de profil</a>
             </div>
