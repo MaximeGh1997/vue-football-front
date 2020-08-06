@@ -7,7 +7,7 @@
     <div class="col-auto col-sm-6 comment" style="background-color: rgb(230, 230, 230);">
       <p class="font-italic">Vous <span v-if="comment.rating">avez donné une note de {{comment.rating}}</span></p>
       <p class="content">{{comment.content}}</p>
-      <p class="light-text font-italic date">{{comment.createdAt | formatDate)}}</p>
+      <p class="light-text font-italic date">{{comment.createdAt | formatDate}}</p>
     </div>
   </div>
   <div v-else class="row justify-content-end justify-content-md-center mt-2 mb-2">
@@ -19,7 +19,7 @@
         <span v-if="comment.rating"> à donné une note de {{comment.rating}}</span>
       </p>
       <p class="content">{{comment.content}}</p>
-      <p class="light-text font-italic date">{{comment.createdAt | formatDate)}}</p>
+      <p class="light-text font-italic date">{{comment.createdAt | formatDate}}</p>
     </div>
     <div class="col-auto align-self-center text-center">
         <img src="../assets/unknow.jpg" :alt="comment.author.username" class="avatar-medium">
