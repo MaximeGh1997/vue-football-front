@@ -22,7 +22,7 @@
     <h3 v-if="this.$route.params.id == decodeToken.decodeToken.id" class="special-font mt-5">Mes commentaires</h3>
     <h3 v-else class="special-font mt-5">Commentaires de <em>@{{user.username}}</em></h3>
     <hr class="mb-3">
-    <Comment v-for="comment in comments" :key="comment.id" :comment="comment"/>
+    <Comment v-for="comment in comments" :key="comment.id" :comment="comment" :onProfile="true"/>
 </div>
 </template>
 

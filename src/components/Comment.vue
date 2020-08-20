@@ -1,6 +1,19 @@
 <template>
 <div>
-  <div v-if="comment.author.id == decodeToken.decodeToken.id" class="row justify-content-start justify-content-md-center mt-2 mb-2">
+  <div v-if="onProfile">
+    <div class="row justify-content-center mt-2 mb-2">
+      <div class="col-8 comment">
+        <p class="font-italic">
+          <span v-if="comment.author.id == decodeToken.decodeToken.id">Vous <span v-if="comment.rating">avez donné une note de {{comment.rating}}</span></span>
+          <span v-else>@{{comment.author.username}} <span v-if="comment.rating">a donné une note de {{comment.rating}}</span></span>
+        </p>
+        <p class="content">{{comment.content}}</p>
+        <p class="light-text font-italic date">{{comment.createdAt | formatDate}}</p>
+      </div>
+    </div>
+  </div>
+  <div v-else>
+    <div v-if="comment.author.id == decodeToken.decodeToken.id" class="row justify-content-start justify-content-md-center mt-2 mb-2">
     <div class="col-auto align-self-center text-center">
       <img src="../assets/unknow.jpg" :alt="comment.author.username" class="avatar-medium">
     </div>
@@ -25,6 +38,7 @@
         <img src="../assets/unknow.jpg" :alt="comment.author.username" class="avatar-medium">
     </div>
   </div>
+  </div>
 </div>
 </template>
 
@@ -42,7 +56,7 @@ if (token != null) {
 
 export default {
   name: 'Comment',
-  props: ['comment'],
+  props: ['comment', 'onProfile'],
   data () {
     return {
       token: token,
