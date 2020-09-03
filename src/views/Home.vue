@@ -42,15 +42,35 @@
       <p class="align-self-center">L'UEFA EURO 2020 est une compétition de football internationale rassemblant les meilleures nations européennes</p>
       <p class="align-self-center">Découvrez les équipes engagées, stades, résultats et classements et échangez avec d'autres passionnés sur les plus belles rencontres de football européennes !</p>
     </div>
+  {{currentDate}}
+    <div v-for="match in matchs" :key="match.id">
+      <div v-if="match.isPlayed && match.date.date < currentDate">
+        {{match.team1.name}} - {{match.team2.name}}
+        {{match.date.date }}
+        || {{currentDate}}
+      </div>
+    </div>
 </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import { mapState } from 'vuex'
 
 export default {
   name: 'Home',
   components: {
+  },
+  data () {
+    return {
+      currentDate: new Date()
+    }
+  },
+  computed: mapState({
+    matchs: state => state.matchs.AllMatchs
+  }),
+  created () {
+    this.$store.dispatch('matchs/findAll')
   }
 }
 </script>

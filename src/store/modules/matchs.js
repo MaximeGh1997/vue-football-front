@@ -9,7 +9,8 @@ Vue.axios.defaults.baseURL = 'http://localhost:8000/api/'
 const state = () => ({
   GroupMatchs: [],
   StageMatchs: [],
-  Match: []
+  Match: [],
+  AllMatchs: []
 })
 
 const mutations = {
@@ -21,6 +22,9 @@ const mutations = {
   },
   SAVE_MATCH (state, match) {
     state.Match = match
+  },
+  SAVE_ALLMATCHS (state, matchs) {
+    state.AllMatchs = matchs
   }
 }
 
@@ -40,6 +44,16 @@ const actions = {
   find ({ commit }, payload) {
     Vue.axios.get('matchs/' + payload.id)
       .then(response => { commit('SAVE_MATCH', response.data) })
+      .catch(error => console.log(error.response))
+  },
+
+  findAll ({ commit }, payload) {
+    Vue.axios.get('matchs', {
+      params: {
+
+      }
+    })
+      .then(response => { commit('SAVE_ALLMATCHS', response.data['hydra:member']) })
       .catch(error => console.log(error.response))
   }
 }

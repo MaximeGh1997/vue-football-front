@@ -64,7 +64,20 @@
       <hr>
     </form>
   <p v-if="match.isPlayed" class="special-font">Note globale: <strong>{{match.globalRating}}</strong></p>
-  <Comment v-for="comment in comments" :key="comment.id" :comment="comment"/>
+  <Comment v-for="comment in showComments" :key="comment.id" :comment="comment"/>
+  <div class="my-4">
+   <ul class="pagination pagination-md justify-content-center text-center">
+        <li class="page-item" :class="page === 1 ? 'disabled' : ''">
+          <a class="page-link" @click="prevPage">Précédent</a>
+        </li>
+        <li class="page-link" style="background-color: inherit">
+            {{ page }} sur {{ lastPage }}
+        </li>
+        <li class="page-item" :class="page === lastPage ? 'disabled' : ''">
+          <a class="page-link" @click="nextPage">Suivant</a>
+        </li>
+      </ul>
+ </div>
   </div>
 </div>
 </template>
@@ -81,7 +94,10 @@ export default {
     return {
       content: '',
       rating: null,
-      token: this.$store.getters['authentication/decodeToken']
+      token: this.$store.getters['authentication/decodeToken'],
+      page: 1,
+      loading: false,
+      perPage: 10
     }
   },
   computed: {
@@ -92,7 +108,17 @@ export default {
     ...mapGetters('authentication', {
       loggedIn: 'loggedIn',
       decodeToken: 'decodeToken'
-    })
+    }),
+    showComments () {
+      const start = (this.page - 1) * this.perPage
+      const end = start + this.perPage
+      return this.comments.slice(start, end)
+    },
+    lastPage () {
+      const length = this.comments.length
+      const lastPage = length / this.perPage
+      return Math.ceil(lastPage)
+    }
   },
   created () {
     this.$store.dispatch('matchs/find', { id: this.$route.params.id })
@@ -124,6 +150,16 @@ export default {
         star.classList.remove('active')
       })
       e.target.classList.add('active')
+    },
+    prevPage () {
+      this.loading = true
+      this.page--
+      window.scrollTo({ top: 1000, behavior: 'smooth' })
+    },
+    nextPage () {
+      this.loading = true
+      this.page++
+      window.scrollTo({ top: 1000, behavior: 'smooth' })
     }
   }
 }
@@ -136,5 +172,13 @@ export default {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+a:hover {
+ cursor: pointer;
+}
+
+.page-link {
+  color: #0084a4
 }
 </style>
