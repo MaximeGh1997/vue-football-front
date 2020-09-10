@@ -32,7 +32,7 @@
                         <p class="special-font">{{match.team1.name}}</p>
                     </div>
                 </router-link>
-                <router-link :to="{name: 'TeamShow', params: { id:match.stade.id }}" class="col-md-4 align-self-center">
+                <router-link :to="{name: 'StadiumShow', params: { id:match.stade.id }}" class="col-md-4 align-self-center">
                     <div class="team-flag text-center">
                         <img :src="match.stade.cover" alt="">
                         <p class="special-font">{{match.stade.name}}</p>

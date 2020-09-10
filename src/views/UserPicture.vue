@@ -1,10 +1,10 @@
 <template>
     <div class="container" id="editPage">
         <h1 class="mb-3 special-font">Ajout d'une image de profil</h1>
-        <form @submit="updateProfile" name="registration" method="post">
+        <form @submit="submitPicture" name="registration" method="post">
             <div class="form-group">
                 <label for="picture" class="required">Image de profil</label>
-                <input type="text" id="registration_firstname" required="required" placeholder="Votre prénom" class="form-control">
+                <input type="file" id="file" ref="file" required="required" class="form-control" @change="handleFileUpload">
             </div>
             <button type="submit" class="btn btn-info">Ajouter une image de profil</button>
         </form>
@@ -18,7 +18,8 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      token: this.$store.getters['authentication/decodeToken']
+      token: this.$store.getters['authentication/decodeToken'],
+      file: ''
     }
   },
   computed: {
@@ -37,22 +38,27 @@ export default {
     }
   },
   methods: {
-    updateProfile (e) {
+    handleFileUpload () {
+      this.file = this.$refs.file.files[0]
+      console.log(this.file)
+    },
+    submitPicture (e) {
       e.preventDefault()
-      try {
-        axios.put('http://localhost:8000/api/users/' + this.user.id, {
-          firstName: this.user.firstname,
-          lastName: this.user.lastname,
-          email: this.user.email
+      const formData = new FormData()
+      formData.append('file', this.file)
+
+      axios.post('http://localhost:8000/upload-picture', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Access-Control-Allow-Origin': 'http://localhost:8000/'
+        }
+      })
+        .then(response => {
+          console.log('SUCCESS')
         })
-          .then(response => {
-            if (response.status === 200) {
-              this.$router.push({ path: '/users/' + this.user.id })
-            }
-          })
-      } catch ({ response }) {
-        console.log(response.data)
-      }
+        .catch(response => {
+          console.log('ERROR')
+        })
     }
   }
 }
