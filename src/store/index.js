@@ -8,6 +8,7 @@ import matchs from './modules/matchs'
 import stadiums from './modules/stadiums'
 import authentication from './modules/authentication'
 import users from './modules/users'
+import loader from './modules/loader'
 
 Vue.use(VueAxios, axios)
 Vue.use(Vuex)
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     comments,
     matchs,
     authentication,
-    users
+    users,
+    loader
   }
 })

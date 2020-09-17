@@ -50,9 +50,22 @@
         </div>
       </div>
 
-    <transition name="slide-fade" mode="out-in">
-      <router-view/>
-    </transition>
+    <div id="content-box">
+      <div class="loading">
+        <loading
+          :active.sync="loading"
+          :is-full-page=false
+          color="#1ba2b8"
+          :height=80
+          :width=80
+          :opacity=0.5
+        >
+        </loading>
+      </div>
+      <transition name="slide-fade" mode="out-in">
+        <router-view/>
+      </transition>
+    </div>
 
     <footer class="page-footer font-small pt-4 w-100 footer-front">
 
@@ -112,7 +125,9 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 export default {
   data () {
@@ -121,10 +136,18 @@ export default {
       unknow: require('./assets/unknow.jpg')
     }
   },
-  computed: mapGetters('authentication', {
-    loggedIn: 'loggedIn',
-    decodeToken: 'decodeToken'
-  }),
+  components: {
+    Loading
+  },
+  computed: {
+    ...mapState(
+      'loader', ['loading']
+    ),
+    ...mapGetters('authentication', {
+      loggedIn: 'loggedIn',
+      decodeToken: 'decodeToken'
+    })
+  },
   methods: {
     handleLogout () {
       this.$store.dispatch('authentication/destroyToken')
@@ -150,6 +173,16 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#content-box {
+  min-height: 100vh;
+}
+
+.loading {
+  position: absolute;
+  width: 100vw;
+  min-height: 100vh;
 }
 
 #nav a.router-link-exact-active {
@@ -294,6 +327,8 @@ export default {
     font-family: 'Ubuntu', sans-serif;
     color: white;
     text-shadow: 1px 1px 1px rgba(16, 76, 87, 0.753);
+    bottom: 0px;
+    position: relative;
 }
 
 .slide-fade-enter-active{

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import httpClient from '@/services/httpClient'
 
 Vue.use(VueAxios, axios)
 
@@ -36,14 +37,14 @@ const actions = {
   },
 
   findByStage ({ commit }, payload) {
-    Vue.axios.get('stages/' + payload.id + '/matchs')
-      .then(response => { commit('SAVE_STAGE_MATCHS', response.data['hydra:member']) })
+    httpClient.get('http://localhost:8000/api/stages/' + payload.id + '/matchs')
+      .then(response => { commit('SAVE_STAGE_MATCHS', response['hydra:member']) })
       .catch(error => console.log(error.response))
   },
 
   find ({ commit }, payload) {
-    Vue.axios.get('matchs/' + payload.id)
-      .then(response => { commit('SAVE_MATCH', response.data) })
+    httpClient.get('http://localhost:8000/api/matchs/' + payload.id)
+      .then(response => { commit('SAVE_MATCH', response) })
       .catch(error => console.log(error.response))
   },
 

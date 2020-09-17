@@ -1,5 +1,5 @@
 <template>
-  <div class="w-100 pb-5" id="stades-show">
+  <div class="w-100 pb-5">
         <div class="col-10 offset-1">
             <h1 class="special-font mt-5 mb-3">Les stades hôtes</h1>
             <hr class="mb-5">
@@ -19,6 +19,14 @@
 import { mapState } from 'vuex'
 
 export default {
+  data () {
+    return {
+      isLoading: false,
+      fullPage: true
+    }
+  },
+  components: {
+  },
   computed: mapState({
     stadiums: state => state.stadiums.stadiums
   }),
@@ -31,10 +39,6 @@ export default {
 </script>
 
 <style>
-#stades-show{
-    min-height: 100vh;
-}
-
 .logo-stade{
     width: 90px;
     height: 90px;

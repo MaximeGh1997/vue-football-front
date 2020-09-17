@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import moment from 'moment'
 import authAPI from './services/authAPI'
+import setupInterceptors from './services/httpInterceptors'
 
 Vue.config.productionTip = false
 
@@ -19,5 +20,8 @@ authAPI.isAuthenticated()
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  created () {
+    setupInterceptors(store)
+  }
 }).$mount('#app')

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import httpClient from '@/services/httpClient'
 
 Vue.use(VueAxios, axios)
 
@@ -18,14 +19,14 @@ const mutations = {
 
 const actions = {
   findStadiums ({ commit }) {
-    Vue.axios.get('stades')
-      .then(response => { commit('SAVE_STADIUMS', response.data['hydra:member']) })
+    httpClient.get('http://localhost:8000/api/stades')
+      .then(response => { commit('SAVE_STADIUMS', response['hydra:member']) })
       .catch(error => console.log(error.response))
   },
 
   findStadium (context, payload) {
-    return Vue.axios.get('stades/' + payload.id)
-      .then(response => response.data)
+    return httpClient.get('http://localhost:8000/api/stades/' + payload.id)
+      .then(response => response)
       .catch(error => console.log(error.response))
   }
 }

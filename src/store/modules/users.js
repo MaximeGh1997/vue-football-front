@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import httpClient from '@/services/httpClient'
 
 Vue.use(VueAxios, axios)
 
@@ -18,8 +19,8 @@ const mutations = {
 
 const actions = {
   findUser ({ commit }, payload) {
-    Vue.axios.get('users/' + payload.id)
-      .then(response => { commit('SAVE_USER', response.data) })
+    httpClient.get('http://localhost:8000/api/users/' + payload.id)
+      .then(response => { commit('SAVE_USER', response) })
       .catch(error => console.log(error.response))
   }
 }
