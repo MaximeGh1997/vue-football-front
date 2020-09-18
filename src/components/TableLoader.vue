@@ -5,6 +5,7 @@
         <div class="line"></div>
         <div class="line"></div>
         <div class="line"></div>
+        <div class="line"></div>
     </div>
 </template>
 
@@ -20,13 +21,15 @@ export default {
 
 <style lang="scss">
 .loader {
-    height: 600px;
+    width: 100%;
+    height: 700px;
     transition: 0.15s ease-in opacity;
     opacity: 0;
     position: absolute;
     pointer-events: none;
+    background-color: white;
+    z-index: 100;
     &--visible {
-    position: relative;
     opacity: 1;
     pointer-events: all;
   }
@@ -34,7 +37,7 @@ export default {
 
 .loader .line {
     background-color: lightgrey;
-    margin-bottom: 100px;
+    margin-bottom: 120px;
     height: 1px;
     width: 100%;
 }

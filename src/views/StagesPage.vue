@@ -9,7 +9,10 @@
     <hr class="mb-3">
 
     <h1 class="special-font">Les matchs</h1>
-    <MatchPreview v-for="match in matchs" :key="match.id" :match="match"/>
+    <div class="box">
+      <TableLoader :visible="loadingMatchs"/>
+      <MatchPreview v-for="match in matchs" :key="match.id" :match="match"/>
+    </div>
   </div>
 </template>
 
@@ -17,10 +20,12 @@
 import axios from 'axios'
 import { mapState } from 'vuex'
 import MatchPreview from '@/components/MatchPreview.vue'
+import TableLoader from '@/components/TableLoader.vue'
 
 export default {
   components: {
-    MatchPreview
+    MatchPreview,
+    TableLoader
   },
   data () {
     return {
@@ -29,7 +34,8 @@ export default {
     }
   },
   computed: mapState({
-    matchs: state => state.matchs.StageMatchs
+    matchs: state => state.matchs.StageMatchs,
+    loadingMatchs: state => state.matchs.LoadingMatchs
   }),
   created () {
     this.find()
@@ -54,5 +60,9 @@ export default {
 </script>
 
 <style>
-
+.box {
+  position: relative;
+  width: 100%;
+  min-height: 800px;
+}
 </style>

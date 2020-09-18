@@ -48,8 +48,10 @@
         </tbody>
     </table>
     <h1 class="special-font mb-3">Les matchs</h1>
-    <TableLoader :visible="loadingMatchs"/>
-    <MatchPreview v-for="match in matchs" :key="match.id" :match="match"/>
+    <div class="box">
+      <TableLoader :visible="loadingMatchs"/>
+      <MatchPreview v-for="match in matchs" :key="match.id" :match="match"/>
+    </div>
   </div>
 </template>
 
@@ -104,6 +106,7 @@ export default {
 
 <style lang="scss">
 .group-table {
+  position: relative;
   &--visible {
     position: relative;
   }
@@ -113,5 +116,11 @@ export default {
   width: 100%;
   height: 100%;
   position: absolute;
+}
+
+.box {
+  position: relative;
+  width: 100%;
+  min-height: 800px;
 }
 </style>

@@ -50,8 +50,12 @@ const actions = {
   },
 
   findByStage ({ commit }, payload) {
-    httpClient.get('http://localhost:8000/api/stages/' + payload.id + '/matchs')
-      .then(response => { commit('SAVE_STAGE_MATCHS', response['hydra:member']) })
+    commit('SHOW')
+    Vue.axios.get('stages/' + payload.id + '/matchs')
+      .then(response => {
+        commit('SAVE_STAGE_MATCHS', response.data['hydra:member'])
+        commit('HIDE')
+      })
       .catch(error => console.log(error.response))
   },
 
