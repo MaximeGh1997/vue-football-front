@@ -85,6 +85,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import Comment from '@/components/Comment.vue'
+import httpClient from '@/services/httpClient'
 
 export default {
   components: {
@@ -92,6 +93,7 @@ export default {
   },
   data () {
     return {
+      match: [],
       content: '',
       rating: null,
       token: this.$store.getters['authentication/decodeToken'],
@@ -102,8 +104,8 @@ export default {
   },
   computed: {
     ...mapState({
-      comments: state => state.comments.MatchComments,
-      match: state => state.matchs.Match
+      comments: state => state.comments.MatchComments
+      // match: state => state.matchs.Match
     }),
     ...mapGetters('authentication', {
       loggedIn: 'loggedIn',
@@ -121,10 +123,18 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('matchs/find', { id: this.$route.params.id })
+    // this.$store.dispatch('matchs/find', { id: this.$route.params.id })
+    this.fetchMatch()
     this.$store.dispatch('comments/findByMatch', { id: this.$route.params.id })
   },
   methods: {
+    fetchMatch () {
+      httpClient.get('http://localhost:8000/api/matchs/' + this.$route.params.id)
+        .then(response => {
+          this.match = response
+        })
+        .catch(error => console.log(error.response))
+    },
     createComment (e) {
       e.preventDefault()
       this.$store.dispatch('comments/postComment', {

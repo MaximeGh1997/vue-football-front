@@ -8,17 +8,18 @@
         </select>
     </form>
     <hr class="mt-3 mb-3">
-    <h1 class="special-font">Groupe {{groupActif.name}}</h1>
-    <table class="table mb-5" id="group-table">
-        <div class="loadingGroup">
-        <loading
-          :active="isLoading"
-          :is-full-page=false
-          color="#1ba2b8"
-          :height=40
-          :width=40
-          :opacity=0.5
-        >
+    <h1 class="group-title special-font">Groupe {{groupActif.name}}</h1>
+    <table class="table mb-5 group-table" :class="{ 'group-table--visible': isLoading }">
+        <div class="loadingGroup" :class="{ 'loadingGroup--visible': isLoading }">
+          <loading
+            :active="isLoading"
+            loader=dots
+            :is-full-page=false
+            color="#1ba2b8"
+            :height=40
+            :width=40
+            :opacity=0.5
+          >
         </loading>
     </div>
         <thead>
@@ -47,7 +48,7 @@
         </tbody>
     </table>
     <h1 class="special-font mb-3">Les matchs</h1>
-    <TableLoader/>
+    <TableLoader :visible="loadingMatchs"/>
     <MatchPreview v-for="match in matchs" :key="match.id" :match="match"/>
   </div>
 </template>
@@ -101,14 +102,16 @@ export default {
 }
 </script>
 
-<style>
-#group-table {
-  position: relative;
+<style lang="scss">
+.group-table {
+  &--visible {
+    position: relative;
+  }
 }
 
 .loadingGroup {
-  position: absolute;
   width: 100%;
   height: 100%;
+  position: absolute;
 }
 </style>

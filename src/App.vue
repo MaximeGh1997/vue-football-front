@@ -51,7 +51,7 @@
       </div>
 
     <div id="content-box">
-      <div class="loading">
+      <div class="loading" :class="{ 'loading--visible': loading }">
         <loading
           :active.sync="loading"
           :is-full-page=false
@@ -168,7 +168,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -180,9 +180,13 @@ export default {
 }
 
 .loading {
+  display: none;
   position: absolute;
   width: 100vw;
   min-height: 100vh;
+  &--visible {
+    display: block;
+  }
 }
 
 #nav a.router-link-exact-active {
