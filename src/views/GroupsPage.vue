@@ -9,7 +9,18 @@
     </form>
     <hr class="mt-3 mb-3">
     <h1 class="special-font">Groupe {{groupActif.name}}</h1>
-    <table class="table mb-5">
+    <table class="table mb-5" id="group-table">
+        <div class="loadingGroup">
+        <loading
+          :active="isLoading"
+          :is-full-page=false
+          color="#1ba2b8"
+          :height=40
+          :width=40
+          :opacity=0.5
+        >
+        </loading>
+    </div>
         <thead>
             <tr>
                 <th scope="col" class="border-0"></th>
@@ -36,6 +47,7 @@
         </tbody>
     </table>
     <h1 class="special-font mb-3">Les matchs</h1>
+    <TableLoader/>
     <MatchPreview v-for="match in matchs" :key="match.id" :match="match"/>
   </div>
 </template>
@@ -44,19 +56,26 @@
 import axios from 'axios'
 import { mapState } from 'vuex'
 import MatchPreview from '@/components/MatchPreview.vue'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
+import TableLoader from '@/components/TableLoader.vue'
 
 export default {
   components: {
-    MatchPreview
+    MatchPreview,
+    Loading,
+    TableLoader
   },
   data () {
     return {
       groups: [],
-      groupActif: []
+      groupActif: [],
+      isLoading: false
     }
   },
   computed: mapState({
-    matchs: state => state.matchs.GroupMatchs
+    matchs: state => state.matchs.GroupMatchs,
+    loadingMatchs: state => state.matchs.LoadingMatchs
   }),
   created () {
     this.find()
@@ -64,10 +83,12 @@ export default {
   },
   methods: {
     find () {
+      this.isLoading = true
       axios.get('http://localhost:8000/api/groups')
         .then(response => {
           this.groups = response.data['hydra:member']
           this.groupActif = this.groups[0]
+          this.isLoading = false
         })
         .catch(error => console.log(error.response))
     },
@@ -81,5 +102,13 @@ export default {
 </script>
 
 <style>
+#group-table {
+  position: relative;
+}
 
+.loadingGroup {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
 </style>

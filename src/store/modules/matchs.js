@@ -11,7 +11,8 @@ const state = () => ({
   GroupMatchs: [],
   StageMatchs: [],
   Match: [],
-  AllMatchs: []
+  AllMatchs: [],
+  LoadingMatchs: false
 })
 
 const mutations = {
@@ -26,13 +27,25 @@ const mutations = {
   },
   SAVE_ALLMATCHS (state, matchs) {
     state.AllMatchs = matchs
+  },
+  SHOW (state) {
+    state.LoadingMatchs = true
+    console.log(state.LoadingMatchs)
+  },
+  HIDE (state) {
+    state.LoadingMatchs = false
+    console.log(state.LoadingMatchs)
   }
 }
 
 const actions = {
   findByGroup ({ commit }, payload) {
+    commit('SHOW')
     Vue.axios.get('groupes/' + payload.id + '/matchs')
-      .then(response => { commit('SAVE_GROUP_MATCHS', response.data['hydra:member']) })
+      .then(response => {
+        commit('SAVE_GROUP_MATCHS', response.data['hydra:member'])
+        commit('HIDE')
+      })
       .catch(error => console.log(error.response))
   },
 
