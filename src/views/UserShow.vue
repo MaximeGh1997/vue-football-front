@@ -14,7 +14,7 @@
                     <p>{{ message | raw }}</p>
                 </div>-->
                 <router-link class="btn btn-info d-block d-md-inline-block mr-2 mb-2" to="/profile/edit">Modifier mon profil</router-link>
-                <a href="#" class="btn btn-warning d-block d-md-inline-block mr-2 mb-2">Modifier mon mot de passe</a>
+                <router-link class="btn btn-warning d-block d-md-inline-block mr-2 mb-2" to="/profile/edit-password">Modifier mon mot de passe</router-link>
                 <a href="#" class="btn btn-info d-block d-md-inline-block mr-2 mb-2">Ajouter une image de profil</a>
                 <a href="#" class="btn btn-danger d-block d-md-inline-block mb-2">Supprimer mon image de profil</a>
             </div>

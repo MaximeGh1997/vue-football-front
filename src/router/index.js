@@ -69,6 +69,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/UserEdit.vue')
   },
   {
+    path: '/profile/edit-password',
+    name: 'PasswordEdit',
+    component: () => import(/* webpackChunkName: "about" */ '../views/PasswordEdit.vue')
+  },
+  {
     path: '/profile/picture',
     name: 'UserPicture',
     component: () => import(/* webpackChunkName: "about" */ '../views/UserPicture.vue')
