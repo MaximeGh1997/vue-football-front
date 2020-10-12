@@ -2,7 +2,7 @@
 <div class="container register min-vh-100">
     <div class="row align-items-center">
         <div class="col-md-2 text-center">
-            <img src="../assets/unknow.jpg" :alt="user.username" class="avatar mb-3">
+            <img :src="'http://127.0.0.1:8000/uploads/'+ user.picture" :alt="user.username" class="avatar mb-3">
         </div>
         <div class="col-md-10 text-center text-md-left">
             <h1 style="overflow: hidden;">{{user.firstname}} {{user.lastname}}</h1>
@@ -15,7 +15,7 @@
                 </div>-->
                 <router-link class="btn btn-info d-block d-md-inline-block mr-2 mb-2" to="/profile/edit">Modifier mon profil</router-link>
                 <router-link class="btn btn-warning d-block d-md-inline-block mr-2 mb-2" to="/profile/edit-password">Modifier mon mot de passe</router-link>
-                <a href="#" class="btn btn-info d-block d-md-inline-block mr-2 mb-2">Ajouter une image de profil</a>
+                <router-link class="btn btn-info d-block d-md-inline-block mr-2 mb-2" to="/profile/picture">Ajouter une image de profil</router-link>
                 <a href="#" class="btn btn-danger d-block d-md-inline-block mb-2">Supprimer mon image de profil</a>
             </div>
         </div>

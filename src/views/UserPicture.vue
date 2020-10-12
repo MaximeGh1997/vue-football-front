@@ -46,11 +46,11 @@ export default {
       e.preventDefault()
       const formData = new FormData()
       formData.append('file', this.file)
+      formData.append('userId', this.token.decodeToken.id)
 
       axios.post('http://localhost:8000/upload-picture', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
-          'Access-Control-Allow-Origin': 'http://localhost:8000/'
+          'Content-Type': 'multipart/form-data'
         }
       })
         .then(response => {
