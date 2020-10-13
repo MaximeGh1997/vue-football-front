@@ -15,9 +15,10 @@ const mutations = {
   SAVE_MATCH_COMMENTS (state, comments) {
     state.MatchComments = comments
   },
-  ADD_MATCH_COMMENTS (state, comment) {
-    console.log(comment)
-    state.MatchComments.push(comment)
+  ADD_MATCH_COMMENTS (state, id) {
+    console.log(id)
+    Vue.axios.get('matchs/' + id + '/comments')
+      .then(response => { state.MatchComments = response.data['hydra:member'] })
   },
   SAVE_USER_COMMENTS (state, comments) {
     state.UserComments = comments
@@ -38,8 +39,13 @@ const actions = {
   },
 
   postComment ({ commit }, payload) {
-    Vue.axios.post('comments', payload)
-      .then(response => { commit('ADD_MATCH_COMMENTS', response.data) })
+    Vue.axios.post('comments', {
+      content: payload.content,
+      rating: payload.rating,
+      author: '/api/users/' + payload.authorId,
+      matchNbr: '/api/matchs/' + payload.matchId
+    })
+      .then(response => { commit('ADD_MATCH_COMMENTS', payload.matchId) })
       .catch(error => console.log(error.response))
   }
 }

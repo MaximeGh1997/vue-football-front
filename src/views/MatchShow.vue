@@ -140,8 +140,8 @@ export default {
       this.$store.dispatch('comments/postComment', {
         content: this.content,
         rating: this.rating,
-        matchNbr: '/api/matchs/' + this.match.id,
-        author: '/api/users/' + this.token.decodeToken.id
+        authorId: this.token.decodeToken.id,
+        matchId: this.match.id
       })
       if (this.match.isPlayed) {
         const ratingBox = document.querySelectorAll('.rating')[0]

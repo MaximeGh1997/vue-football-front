@@ -16,7 +16,7 @@
                 <router-link class="btn btn-info d-block d-md-inline-block mr-2 mb-2" to="/profile/edit">Modifier mon profil</router-link>
                 <router-link class="btn btn-warning d-block d-md-inline-block mr-2 mb-2" to="/profile/edit-password">Modifier mon mot de passe</router-link>
                 <router-link class="btn btn-info d-block d-md-inline-block mr-2 mb-2" to="/profile/picture">Ajouter une image de profil</router-link>
-                <a href="#" class="btn btn-danger d-block d-md-inline-block mb-2">Supprimer mon image de profil</a>
+                <button @click="removePicture" class="btn btn-danger d-block d-md-inline-block mb-2">Supprimer mon image de profil</button>
             </div>
         </div>
     </div>
@@ -43,6 +43,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import Comment from '@/components/Comment.vue'
+import axios from 'axios'
 
 export default {
   components: {
@@ -52,7 +53,8 @@ export default {
     return {
       page: 1,
       loading: false,
-      perPage: 10
+      perPage: 10,
+      token: this.$store.getters['authentication/decodeToken']
     }
   },
   computed: {
@@ -88,6 +90,25 @@ export default {
       this.loading = true
       this.page++
       window.scrollTo({ top: 300, behavior: 'smooth' })
+    },
+    removePicture () {
+      const userData = new FormData()
+      userData.append('userId', this.token.decodeToken.id)
+
+      if (confirm('Êtes-vous sûr de vouloir supprimer votre image de profil ?')) {
+        axios.post('http://localhost:8000/remove-picture', userData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+          .then(response => {
+            console.log('SUCCESS')
+            this.$store.dispatch('users/findUser', { id: this.$route.params.id })
+          })
+          .catch(response => {
+            console.log('ERROR')
+          })
+      }
     }
   }
 }

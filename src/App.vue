@@ -133,7 +133,8 @@ export default {
   data () {
     return {
       logo: require('./assets/UEFA_Euro_2020_Logo_White.svg.png'),
-      unknow: require('./assets/unknow.jpg')
+      unknow: require('./assets/unknow.jpg'),
+      token: this.$store.getters['authentication/decodeToken']
     }
   },
   components: {
