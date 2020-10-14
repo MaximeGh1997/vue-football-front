@@ -6,10 +6,18 @@
         </div>
         <div class="col-md-10 text-center text-md-left">
             <h1 style="overflow: hidden;">{{user.firstname}} {{user.lastname}}</h1>
-            <p class="font-italic">@{{user.username}}</p>
+            <p class="font-italic">@{{user.username}} - {{user.email}}</p>
+        </div>
+        <div class="col-lg-10 offset-lg-2">
+            <div class="mt-3 text-center text-md-left">
+                <router-link class="btn btn-info d-block d-md-inline-block mr-2 mb-2" to="/profile/edit">Modifier mon profil</router-link>
+                <router-link class="btn btn-warning d-block d-md-inline-block mr-2 mb-2" to="/profile/edit-password">Modifier mon mot de passe</router-link>
+                <router-link class="btn btn-info d-block d-md-inline-block mr-2 mb-2" to="/profile/picture">Ajouter une image de profil</router-link>
+                <button @click="removePicture" class="btn btn-danger d-block d-md-inline-block mb-2">Supprimer mon image de profil</button>
+            </div>
         </div>
     </div>
-    <h3 class="special-font mt-5">Commentaires de <em>@{{user.username}}</em></h3>
+    <h3 class="special-font mt-5">Mes commentaires</h3>
     <hr class="mb-3">
     <Comment v-for="comment in showComments" :key="comment.id" :comment="comment" :onProfile="true"/>
     <div class="my-4">
@@ -31,6 +39,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import Comment from '@/components/Comment.vue'
+import axios from 'axios'
 
 export default {
   components: {
@@ -64,8 +73,12 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('users/findUser', { id: this.$route.params.id })
-    this.$store.dispatch('comments/findByUser', { id: this.$route.params.id })
+    if (this.$store.getters['authentication/loggedIn']) {
+      this.$store.dispatch('users/findUser', { id: this.token.decodeToken.id })
+      this.$store.dispatch('comments/findByUser', { id: this.token.decodeToken.id })
+    } else {
+      this.$router.push({ path: '/login' })
+    }
   },
   methods: {
     prevPage () {
@@ -77,6 +90,25 @@ export default {
       this.loading = true
       this.page++
       window.scrollTo({ top: 300, behavior: 'smooth' })
+    },
+    removePicture () {
+      const userData = new FormData()
+      userData.append('userId', this.token.decodeToken.id)
+
+      if (confirm('Êtes-vous sûr de vouloir supprimer votre image de profil ?')) {
+        axios.post('http://localhost:8000/remove-picture', userData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+          .then(response => {
+            console.log('SUCCESS')
+            this.$store.dispatch('users/findUser', { id: this.token.decodeToken.id })
+          })
+          .catch(response => {
+            console.log('ERROR')
+          })
+      }
     }
   }
 }

@@ -11,7 +11,8 @@ const state = () => ({
   GroupMatchs: [],
   StageMatchs: [],
   Match: [],
-  AllMatchs: [],
+  NextsMatchs: [],
+  LastsResults: [],
   LoadingMatchs: false
 })
 
@@ -25,8 +26,11 @@ const mutations = {
   SAVE_MATCH (state, match) {
     state.Match = match
   },
-  SAVE_ALLMATCHS (state, matchs) {
-    state.AllMatchs = matchs
+  SAVE_NEXTS_MATCHS (state, matchs) {
+    state.NextsMatchs = matchs.slice(0, 3)
+  },
+  SAVE_LASTS_RESULTS (state, matchs) {
+    state.LastsResults = matchs.slice(0, 3)
   },
   SHOW (state) {
     state.LoadingMatchs = true
@@ -65,13 +69,32 @@ const actions = {
       .catch(error => console.log(error.response))
   },
 
-  findAll ({ commit }, payload) {
-    Vue.axios.get('matchs', {
-      params: {
-
-      }
+  findNextsMatchs ({ commit }) {
+    let currentDate = new Date()
+    currentDate = currentDate.toLocaleString('fr-FR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
     })
-      .then(response => { commit('SAVE_ALLMATCHS', response.data['hydra:member']) })
+    currentDate = currentDate.replace(/\//g, '-')
+    console.log(currentDate)
+
+    Vue.axios.get('matchs?date.date[after]=' + currentDate + '&order[date.date]=asc&exists[isPlayed]=false')
+      .then(response => { commit('SAVE_NEXTS_MATCHS', response.data['hydra:member']) })
+      .catch(error => console.log(error.response))
+  },
+
+  findLastsResults ({ commit }) {
+    let currentDate = new Date()
+    currentDate = currentDate.toLocaleString('fr-FR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    })
+    currentDate = currentDate.replace(/\//g, '-')
+
+    Vue.axios.get('matchs?date.date[before]=' + currentDate + '&order[date.date]=desc&isPlayed=true')
+      .then(response => { commit('SAVE_LASTS_RESULTS', response.data['hydra:member']) })
       .catch(error => console.log(error.response))
   }
 }

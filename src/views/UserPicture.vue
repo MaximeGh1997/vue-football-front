@@ -55,7 +55,7 @@ export default {
       })
         .then(response => {
           console.log('SUCCESS')
-          this.$router.push({ path: '/users/' + this.user.id })
+          this.$router.push({ path: '/profile/show' })
         })
         .catch(response => {
           console.log('ERROR')

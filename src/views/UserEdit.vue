@@ -56,7 +56,7 @@ export default {
         })
           .then(response => {
             if (response.status === 200) {
-              this.$router.push({ path: '/users/' + this.user.id })
+              this.$router.push({ path: '/profile/show' })
             }
           })
       } catch ({ response }) {

@@ -65,7 +65,7 @@ export default {
         }
       })
         .then(response => {
-          this.$router.push({ path: '/users/' + response.data.id })
+          this.$router.push({ path: '/profile/show' })
         })
         .catch(error => {
           this.error = error.data
