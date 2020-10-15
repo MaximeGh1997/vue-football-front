@@ -20,8 +20,8 @@
             :width=40
             :opacity=0.5
           >
-        </loading>
-    </div>
+          </loading>
+        </div>
         <thead>
             <tr>
                 <th scope="col" class="border-0"></th>

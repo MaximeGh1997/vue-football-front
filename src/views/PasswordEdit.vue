@@ -14,7 +14,21 @@
                 <label class="required">Confirmation nouveau mot de passe</label>
                 <input v-model="passwordConfirm" type="password" id="update_passwordConfirm" required="required" placeholder="Confirmez votre nouveau mot de passe" class="form-control">
             </div>
-            <button type="submit" class="btn btn-warning">Modifier mon mot de passe</button>
+            <div id="button-box">
+              <button type="submit" class="btn btn-warning">Modifier mon mot de passe</button>
+              <div class="post-loader" :class="{ 'post-loader--visible': isLoading }">
+              <loading
+                :active="isLoading"
+                loader=dots
+                :is-full-page=false
+                color="#1ba2b8"
+                :height=25
+                :width=25
+                :opacity=0
+              >
+              </loading>
+            </div>
+            </div>
         </form>
     </div>
 </template>
@@ -22,15 +36,21 @@
 <script>
 import { mapGetters } from 'vuex'
 import axios from 'axios'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 export default {
+  components: {
+    Loading
+  },
   data () {
     return {
       oldPassword: '',
       newPassword: '',
       passwordConfirm: '',
       token: this.$store.getters['authentication/decodeToken'],
-      error: null
+      error: null,
+      isLoading: false
     }
   },
   computed: {
@@ -59,12 +79,14 @@ export default {
         console.log(this.error)
         return
       }
+      this.isLoading = true
       axios.post('http://localhost:8000/password-edit', passwordData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       })
         .then(response => {
+          this.isLoading = false
           this.$router.push({ path: '/profile/show' })
         })
         .catch(error => {
@@ -76,6 +98,20 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+#button-box {
+  width: 280px;
+}
 
+.post-loader {
+  display: none;
+  width: 30px;
+  min-height: 35px;
+  float: right;
+  position: relative;
+  margin-top: 5px;
+  &--visible {
+    display: block;
+  }
+}
 </style>

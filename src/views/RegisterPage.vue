@@ -34,15 +34,34 @@
                 <label for="registration_picture" class="custom-file-label"></label>
               </div>
             </div>-->
-            <button type="submit" class="btn btn-info">Confirmez l'inscription</button>
+            <div id="button-box">
+              <button type="submit" class="btn btn-info">Confirmez l'inscription</button>
+              <div class="post-loader" :class="{ 'post-loader--visible': isLoading }">
+                <loading
+                  :active="isLoading"
+                  loader=dots
+                  :is-full-page=false
+                  color="#1ba2b8"
+                  :height=25
+                  :width=25
+                  :opacity=0
+                >
+                </loading>
+              </div>
+            </div>
         </form>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 export default {
+  components: {
+    Loading
+  },
   data () {
     return {
       firstname: '',
@@ -52,7 +71,8 @@ export default {
       password: '',
       passwordConfirm: '',
       file: '',
-      error: null
+      error: null,
+      isLoading: false
     }
   },
   methods: {
@@ -68,6 +88,7 @@ export default {
         return
       }
       try {
+        this.isLoading = true
         axios.post('http://localhost:8000/api/users', {
           firstName: this.firstname,
           lastName: this.lastname,
@@ -77,6 +98,7 @@ export default {
         })
           .then(response => {
             if (response.status === 201) {
+              this.isLoading = false
               this.$router.push({ path: '/login' })
             }
             this.firstname = ''
@@ -93,6 +115,20 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+#button-box {
+  width: 230px;
+}
 
+.post-loader {
+  display: none;
+  width: 30px;
+  min-height: 35px;
+  float: right;
+  position: relative;
+  margin-top: 5px;
+  &--visible {
+    display: block;
+  }
+}
 </style>

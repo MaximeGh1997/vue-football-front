@@ -11,6 +11,9 @@
     <h1 class="special-font">Les matchs</h1>
     <div class="box">
       <TableLoader :visible="loadingMatchs"/>
+      <div v-if="matchs.length < 1" class="row mt-5 mb-5">
+            <h4 class="col-12 align-self-center text-center special-font">Cette phase n'a pas encore commencée</h4>
+      </div>
       <MatchPreview v-for="match in matchs" :key="match.id" :match="match"/>
     </div>
   </div>

@@ -58,7 +58,21 @@
         <div class="form-group">
           <textarea id="comment_content" v-model="content" placeholder="Echangez sur ce match !" class="form-control" required>
           </textarea>
-          <button type="submit" class="btn btn-info mt-3">Envoyer</button>
+          <div id="button-box">
+            <button type="submit" class="btn btn-info mt-3">Envoyer</button>
+            <div class="post-loader" :class="{ 'post-loader--visible': postLoading }">
+              <loading
+                :active="postLoading"
+                loader=dots
+                :is-full-page=false
+                color="#1ba2b8"
+                :height=25
+                :width=25
+                :opacity=0
+              >
+              </loading>
+            </div>
+          </div>
         </div>
       </div>
       <hr>
@@ -86,10 +100,13 @@
 import { mapState, mapGetters } from 'vuex'
 import Comment from '@/components/Comment.vue'
 import httpClient from '@/services/httpClient'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 export default {
   components: {
-    Comment
+    Comment,
+    Loading
   },
   data () {
     return {
@@ -99,13 +116,14 @@ export default {
       token: this.$store.getters['authentication/decodeToken'],
       page: 1,
       loading: false,
-      perPage: 10
+      perPage: 10,
+      Loading
     }
   },
   computed: {
     ...mapState({
-      comments: state => state.comments.MatchComments
-      // match: state => state.matchs.Match
+      comments: state => state.comments.MatchComments,
+      postLoading: state => state.comments.PostLoader
     }),
     ...mapGetters('authentication', {
       loggedIn: 'loggedIn',
@@ -123,7 +141,6 @@ export default {
     }
   },
   created () {
-    // this.$store.dispatch('matchs/find', { id: this.$route.params.id })
     this.fetchMatch()
     this.$store.dispatch('comments/findByMatch', { id: this.$route.params.id })
   },
@@ -175,7 +192,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .match-cover{
     height: 400px;
     background-image: url(../assets/match-background2.jpg);
@@ -190,5 +207,21 @@ a:hover {
 
 .page-link {
   color: #0084a4
+}
+
+#button-box {
+  width: 130px;
+}
+
+.post-loader {
+  display: none;
+  width: 30px;
+  min-height: 35px;
+  float: right;
+  position: relative;
+  margin-top: 20px;
+  &--visible {
+    display: block;
+  }
 }
 </style>

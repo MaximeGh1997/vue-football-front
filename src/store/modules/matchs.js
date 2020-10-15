@@ -77,7 +77,6 @@ const actions = {
       day: '2-digit'
     })
     currentDate = currentDate.replace(/\//g, '-')
-    console.log(currentDate)
 
     Vue.axios.get('matchs?date.date[after]=' + currentDate + '&order[date.date]=asc&exists[isPlayed]=false')
       .then(response => { commit('SAVE_NEXTS_MATCHS', response.data['hydra:member']) })

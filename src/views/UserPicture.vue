@@ -6,7 +6,21 @@
                 <label for="picture" class="required">Image de profil</label>
                 <input type="file" id="file" ref="file" required="required" class="form-control" @change="handleFileUpload">
             </div>
-            <button type="submit" class="btn btn-info">Ajouter une image de profil</button>
+            <div id="button-box">
+              <button type="submit" class="btn btn-info">Ajouter une image de profil</button>
+              <div class="post-loader" :class="{ 'post-loader--visible': isLoading }">
+              <loading
+                :active="isLoading"
+                loader=dots
+                :is-full-page=false
+                color="#1ba2b8"
+                :height=25
+                :width=25
+                :opacity=0
+              >
+              </loading>
+            </div>
+            </div>
         </form>
     </div>
 </template>
@@ -14,12 +28,18 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import axios from 'axios'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 export default {
+  components: {
+    Loading
+  },
   data () {
     return {
       token: this.$store.getters['authentication/decodeToken'],
-      file: ''
+      file: '',
+      isLoading: false
     }
   },
   computed: {
@@ -48,6 +68,7 @@ export default {
       formData.append('file', this.file)
       formData.append('userId', this.token.decodeToken.id)
 
+      this.isLoading = true
       axios.post('http://localhost:8000/upload-picture', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -55,6 +76,7 @@ export default {
       })
         .then(response => {
           console.log('SUCCESS')
+          this.isLoading = false
           this.$router.push({ path: '/profile/show' })
         })
         .catch(response => {
@@ -65,9 +87,25 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 #editPage{
     min-height: 80vh;
     padding-top: 10vh;
+}
+
+#button-box {
+  width: 280px;
+}
+
+.post-loader {
+  display: none;
+  width: 30px;
+  min-height: 35px;
+  float: right;
+  position: relative;
+  margin-top: 5px;
+  &--visible {
+    display: block;
+  }
 }
 </style>

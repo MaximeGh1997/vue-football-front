@@ -30,6 +30,18 @@
                 class="mt-3 btn btn-success">
                 Connexion
                 </button>
+                <div class="post-loader" :class="{ 'post-loader--visible': isLoading }">
+                  <loading
+                    :active="isLoading"
+                    loader=dots
+                    :is-full-page=false
+                    color="#1ba2b8"
+                    :height=35
+                    :width=35
+                    :opacity=0
+                  >
+                  </loading>
+                </div>
             </div>
         </form>
         </div>
@@ -42,13 +54,19 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 export default {
+  components: {
+    Loading
+  },
   data () {
     return {
       username: '',
       password: '',
-      error: null
+      error: null,
+      isLoading: false
     }
   },
   computed: mapGetters('authentication', {
@@ -57,11 +75,13 @@ export default {
   methods: {
     login (e) {
       e.preventDefault()
+      this.isLoading = true
       this.$store.dispatch('authentication/retrieveToken', {
         username: this.username,
         password: this.password
       })
         .then(response => {
+          this.isLoading = false
           this.$router.push({ path: '/' })
         })
     },
@@ -73,11 +93,24 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .login-cont{
   min-height: 80vh;
 }
 #login-content{
   padding-top: 10vh;
+}
+
+.post-loader {
+  left:50%;
+  transform: translateX(-50%);
+  display: none;
+  width: 40px;
+  min-height: 35px;
+  position: relative;
+  margin-top: 10px;
+  &--visible {
+    display: block;
+  }
 }
 </style>

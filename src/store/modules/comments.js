@@ -8,7 +8,8 @@ Vue.axios.defaults.baseURL = 'http://localhost:8000/api/'
 
 const state = () => ({
   MatchComments: [],
-  UserComments: []
+  UserComments: [],
+  PostLoader: false
 })
 
 const mutations = {
@@ -18,10 +19,18 @@ const mutations = {
   ADD_MATCH_COMMENTS (state, id) {
     console.log(id)
     Vue.axios.get('matchs/' + id + '/comments')
-      .then(response => { state.MatchComments = response.data['hydra:member'] })
+      .then(response => {
+        state.MatchComments = response.data['hydra:member']
+      })
   },
   SAVE_USER_COMMENTS (state, comments) {
     state.UserComments = comments
+  },
+  SHOW (state) {
+    state.PostLoader = true
+  },
+  HIDE (state) {
+    state.PostLoader = false
   }
 }
 
@@ -39,13 +48,17 @@ const actions = {
   },
 
   postComment ({ commit }, payload) {
+    commit('SHOW')
     Vue.axios.post('comments', {
       content: payload.content,
       rating: payload.rating,
       author: '/api/users/' + payload.authorId,
       matchNbr: '/api/matchs/' + payload.matchId
     })
-      .then(response => { commit('ADD_MATCH_COMMENTS', payload.matchId) })
+      .then(response => {
+        commit('ADD_MATCH_COMMENTS', payload.matchId)
+        commit('HIDE')
+      })
       .catch(error => console.log(error.response))
   }
 }
