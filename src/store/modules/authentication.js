@@ -54,6 +54,10 @@ const actions = {
           resolve(response)
         })
         .catch(error => {
+          Vue.$toast.open({
+            message: 'Nom d\'utilisateur ou mot de passe incorrect !',
+            type: 'error'
+          })
           console.log(error)
           reject(error)
         })

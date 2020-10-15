@@ -25,7 +25,6 @@
             <div class="form-group">
                 <label for="regsitration_passwordConfirm" class="required">Confirmation du mot de passe</label>
                 <input v-model="passwordConfirm" type="password" id="registration_passwordConfirm" required="required" placeholder="Confirmation du mot de passe" class="form-control">
-                <div v-if="error" class="alert alert-danger">{{error}}</div>
             </div>
             <!--<div class="form-group">
               <label for="registration_picture">Image de profil (jpg,png,gif)</label>
@@ -57,6 +56,7 @@
 import axios from 'axios'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
+import Vue from 'vue'
 
 export default {
   components: {
@@ -71,7 +71,6 @@ export default {
       password: '',
       passwordConfirm: '',
       file: '',
-      error: null,
       isLoading: false
     }
   },
@@ -83,8 +82,16 @@ export default {
     registration (e) {
       e.preventDefault()
       if (this.password !== this.passwordConfirm) {
-        this.error = 'Vous n\'avez pas correctement confirmé votre mot de passe'
-        console.log(this.error)
+        Vue.$toast.open({
+          message: 'Vous n\'avez pas correctement confirmé votre mot de passe !',
+          type: 'error'
+        })
+        this.firstname = ''
+        this.lastname = ''
+        this.username = ''
+        this.email = ''
+        this.password = ''
+        this.passwordConfirm = ''
         return
       }
       try {
@@ -100,6 +107,10 @@ export default {
             if (response.status === 201) {
               this.isLoading = false
               this.$router.push({ path: '/login' })
+              Vue.$toast.open({
+                message: 'Votre compte à bien été créé, connectez-vous !',
+                type: 'success'
+              })
             }
             this.firstname = ''
             this.lastname = ''
@@ -108,7 +119,18 @@ export default {
             this.password = ''
           })
       } catch ({ response }) {
-        console.log(response.data)
+        console.log(response.violations.message)
+        this.isLoading = false
+        this.firstname = ''
+        this.lastname = ''
+        this.username = ''
+        this.email = ''
+        this.password = ''
+        this.passwordConfirm = ''
+        Vue.$toast.open({
+          message: 'error message from symfony',
+          type: 'error'
+        })
       }
     }
   }

@@ -30,6 +30,7 @@ import { mapState, mapGetters } from 'vuex'
 import axios from 'axios'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
+import Vue from 'vue'
 
 export default {
   components: {
@@ -75,12 +76,17 @@ export default {
         }
       })
         .then(response => {
-          console.log('SUCCESS')
           this.isLoading = false
           this.$router.push({ path: '/profile/show' })
         })
         .catch(response => {
-          console.log('ERROR')
+          console.log(response.violations.message)
+          this.isLoading = false
+          this.file = ''
+          Vue.$toast.open({
+            message: 'error message from symfony',
+            type: 'error'
+          })
         })
     }
   }

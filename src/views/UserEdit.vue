@@ -38,6 +38,7 @@ import { mapState, mapGetters } from 'vuex'
 import axios from 'axios'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
+import Vue from 'vue'
 
 export default {
   components: {
@@ -80,10 +81,18 @@ export default {
             if (response.status === 200) {
               this.isLoading = false
               this.$router.push({ path: '/profile/show' })
+              Vue.$toast.open({
+                message: 'Votre profil a bien été modifié !',
+                type: 'success'
+              })
             }
           })
       } catch ({ response }) {
-        console.log(response.data)
+        this.isLoading = false
+        Vue.$toast.open({
+          message: 'error message from symfony',
+          type: 'error'
+        })
       }
     }
   }

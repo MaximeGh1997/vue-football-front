@@ -129,6 +129,16 @@ import { mapGetters, mapState } from 'vuex'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 
+/* const links = document.getElementsByTagName('a')
+links.forEach(link => {
+  console.log(link)
+  link.onclick = function () {
+    const dropMenu = document.querySelectorAll('.dropdown-menu')[0]
+    console.log(dropMenu)
+    dropMenu.classList.remove('active')
+  }
+}) */
+
 export default {
   data () {
     return {

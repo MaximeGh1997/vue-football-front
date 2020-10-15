@@ -38,6 +38,7 @@ import { mapGetters } from 'vuex'
 import axios from 'axios'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
+import Vue from 'vue'
 
 export default {
   components: {
@@ -49,7 +50,6 @@ export default {
       newPassword: '',
       passwordConfirm: '',
       token: this.$store.getters['authentication/decodeToken'],
-      error: null,
       isLoading: false
     }
   },
@@ -75,8 +75,13 @@ export default {
       passwordData.append('userId', this.token.decodeToken.id)
 
       if (this.newPassword !== this.passwordConfirm) {
-        this.error = 'Vous n\'avez pas correctement confirmé votre nouveau mot de passe'
-        console.log(this.error)
+        Vue.$toast.open({
+          message: 'Vous n\'avez pas correctement confirmé votre nouveau mot de passe !',
+          type: 'error'
+        })
+        this.oldPassword = ''
+        this.newPassword = ''
+        this.passwordConfirm = ''
         return
       }
       this.isLoading = true
@@ -86,12 +91,24 @@ export default {
         }
       })
         .then(response => {
+          console.log(response)
           this.isLoading = false
           this.$router.push({ path: '/profile/show' })
+          Vue.$toast.open({
+            message: 'Votre mot de passe a bien été modifié !',
+            type: 'success'
+          })
         })
         .catch(error => {
-          this.error = error.data
-          console.log(this.error)
+          console.log(error)
+          this.isLoading = false
+          Vue.$toast.open({
+            message: 'error message from symfony',
+            type: 'error'
+          })
+          this.oldPassword = ''
+          this.newPassword = ''
+          this.passwordConfirm = ''
         })
     }
   }

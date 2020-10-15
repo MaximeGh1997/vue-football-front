@@ -59,7 +59,14 @@ const actions = {
         commit('ADD_MATCH_COMMENTS', payload.matchId)
         commit('HIDE')
       })
-      .catch(error => console.log(error.response))
+      .catch(error => {
+        console.log(error.response)
+        commit('HIDE')
+        Vue.$toast.open({
+          message: 'error message from symfony',
+          type: 'error'
+        })
+      })
   }
 }
 

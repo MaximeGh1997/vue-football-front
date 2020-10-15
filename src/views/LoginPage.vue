@@ -84,6 +84,9 @@ export default {
           this.isLoading = false
           this.$router.push({ path: '/' })
         })
+        .catch(response => {
+          this.isLoading = false
+        })
     },
 
     handleLogout () {
