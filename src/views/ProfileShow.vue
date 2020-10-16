@@ -13,7 +13,7 @@
                 <router-link class="btn btn-info d-block d-md-inline-block mr-2 mb-2" to="/profile/edit">Modifier mon profil</router-link>
                 <router-link class="btn btn-warning d-block d-md-inline-block mr-2 mb-2" to="/profile/edit-password">Modifier mon mot de passe</router-link>
                 <router-link class="btn btn-info d-block d-md-inline-block mr-2 mb-2" to="/profile/picture">Ajouter une image de profil</router-link>
-                <button @click="removePicture" class="btn btn-danger d-block d-md-inline-block mb-2">Supprimer mon image de profil</button>
+                <button @click="removePicture" class="btn btn-danger d-block d-md-inline-block mr-2 mb-2">Supprimer mon image de profil</button>
             </div>
         </div>
     </div>
@@ -40,6 +40,7 @@
 import { mapState, mapGetters } from 'vuex'
 import Comment from '@/components/Comment.vue'
 import axios from 'axios'
+import Vue from 'vue'
 
 export default {
   components: {
@@ -102,8 +103,11 @@ export default {
           }
         })
           .then(response => {
-            console.log('SUCCESS')
             this.$store.dispatch('users/findUser', { id: this.token.decodeToken.id })
+            Vue.$toast.open({
+              message: 'Votre image de profil a bien été supprimée !',
+              type: 'success'
+            })
           })
           .catch(response => {
             console.log('ERROR')

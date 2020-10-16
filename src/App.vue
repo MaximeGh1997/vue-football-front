@@ -10,20 +10,20 @@
           <span></span>
         </div>
         <div class="collapse navbar-collapse d-none d-md-block">
-          <router-link @click="closeDropMenu" class="nav-item nav-link" to="/">Accueil</router-link>
-          <router-link @click="closeDropMenu" class="nav-item nav-link" to="/teams">Equipes</router-link>
-          <router-link @click="closeDropMenu" class="nav-item nav-link" to="/stadiums">Stades</router-link>
-          <router-link @click="closeDropMenu" class="nav-item nav-link" to="/groups">Classements & Résultats</router-link>
-          <router-link @click="closeDropMenu" class="nav-item nav-link" to="/stages">Phase finale</router-link>
+          <router-link class="nav-item nav-link" to="/">Accueil</router-link>
+          <router-link class="nav-item nav-link" to="/teams">Equipes</router-link>
+          <router-link class="nav-item nav-link" to="/stadiums">Stades</router-link>
+          <router-link class="nav-item nav-link" to="/groups">Classements & Résultats</router-link>
+          <router-link class="nav-item nav-link" to="/stages">Phase finale</router-link>
         </div>
         <ul class="nav ml-auto">
          <li v-if="loggedIn" class="nav-item dropdown">
-            <a @click="openDropMenu" href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="accountDropdownLink">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="accountDropdownLink">
                <img :src="'http://127.0.0.1:8000/uploads/'+ decodeToken.decodeToken.picture" alt="avatar de" class="avatar-mini">
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
-               <router-link @click="closeDropMenu" class="dropdown-item" :to="{name: 'ProfileShow'}">Mon profil</router-link>
-               <a v-if="decodeToken.decodeToken.roles.includes('ROLE_ADMIN')" @click="closeDropMenu" href="http://www.symfoot.maxime-gh.com/admin/matchs" class="dropdown-item">Administration</a>
+               <router-link class="dropdown-item" :to="{name: 'ProfileShow'}">Mon profil</router-link>
+               <a v-if="decodeToken.decodeToken.roles.includes('ROLE_ADMIN')" href="http://www.symfoot.maxime-gh.com/admin/matchs" class="dropdown-item">Administration</a>
                <div class="dropdown-divider"></div>
                <a href="" class="dropdown-item" @click="handleLogout">Déconnexion</a>
             </div>
@@ -129,21 +129,22 @@ import { mapGetters, mapState } from 'vuex'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 
-/* const links = document.getElementsByTagName('a')
-links.forEach(link => {
+const burgerLinks = document.querySelectorAll('#nav-burger ul a')
+// const burgerLinks2 = document.querySelectorAll('#nav-burger #links a')
+const nav = document.querySelectorAll('#nav-burger')[0]
+
+burgerLinks.forEach(link => {
   console.log(link)
   link.onclick = function () {
-    const dropMenu = document.querySelectorAll('.dropdown-menu')[0]
-    console.log(dropMenu)
-    dropMenu.classList.remove('active')
+    nav.classList.remove('active')
+    console.log('OK')
   }
-}) */
+})
 
 export default {
   data () {
     return {
       logo: require('./assets/UEFA_Euro_2020_Logo_White.svg.png'),
-      unknow: require('./assets/unknow.jpg'),
       token: this.$store.getters['authentication/decodeToken']
     }
   },
@@ -165,20 +166,8 @@ export default {
       this.$router.push({ path: '/login' })
     },
     openMenu () {
-      const burger = document.querySelectorAll('nav .burger')[0]
       const nav = document.querySelectorAll('#nav-burger')[0]
-
       nav.classList.toggle('active')
-      burger.classList.toggle('active')
-    },
-    openDropMenu () {
-      const dropMenu = document.querySelectorAll('.dropdown-menu')[0]
-      dropMenu.classList.toggle('active')
-    },
-    closeDropMenu () {
-      const dropMenu = document.querySelectorAll('.dropdown-menu')[0]
-      console.log(dropMenu)
-      dropMenu.classList.remove('active')
     }
   }
 }
@@ -198,7 +187,7 @@ export default {
 .loading {
   display: none;
   position: absolute;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   &--visible {
     display: block;

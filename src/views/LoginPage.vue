@@ -13,6 +13,7 @@
                     placeholder="Nom d'utilisateur"
                     name="username"
                     id="username"
+                    required="required"
                     class="form-control"/>
             </div>
             <div className="form-group">
@@ -23,6 +24,7 @@
                     placeholder="Mot de passe"
                     id="password"
                     name="password"
+                    required="required"
                     class="form-control"/>
             </div>
             <div class="form-group text-center">

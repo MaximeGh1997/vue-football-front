@@ -17,7 +17,6 @@ const mutations = {
     state.MatchComments = comments
   },
   ADD_MATCH_COMMENTS (state, id) {
-    console.log(id)
     Vue.axios.get('matchs/' + id + '/comments')
       .then(response => {
         state.MatchComments = response.data['hydra:member']
@@ -60,10 +59,9 @@ const actions = {
         commit('HIDE')
       })
       .catch(error => {
-        console.log(error.response)
         commit('HIDE')
         Vue.$toast.open({
-          message: 'error message from symfony',
+          message: error.response.data.violations[0].message,
           type: 'error'
         })
       })

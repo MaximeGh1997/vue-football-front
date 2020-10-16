@@ -3,7 +3,7 @@
         <div class="team-cover mb-5">
         <img :src="stadium.cover" alt="">
     </div>
-        <div class="row">
+        <div class="row" id="rowStadiumShow">
             <div class="text-center col-md-4 offset-1 stade-icon">
                 <img src="../assets/stadium-icon.png" alt="">
             </div>
@@ -55,6 +55,10 @@ export default {
 </script>
 
 <style>
+#rowStadiumShow {
+  margin-right: 0px;
+}
+
 #stades-show{
     min-height: 100vh;
 }

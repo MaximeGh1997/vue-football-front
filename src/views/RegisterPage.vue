@@ -70,15 +70,10 @@ export default {
       email: '',
       password: '',
       passwordConfirm: '',
-      file: '',
       isLoading: false
     }
   },
   methods: {
-    handleFileUpload () {
-      this.file = this.$refs.file.files[0]
-      console.log(this.file.name)
-    },
     registration (e) {
       e.preventDefault()
       if (this.password !== this.passwordConfirm) {
@@ -94,44 +89,35 @@ export default {
         this.passwordConfirm = ''
         return
       }
-      try {
-        this.isLoading = true
-        axios.post('http://localhost:8000/api/users', {
-          firstName: this.firstname,
-          lastName: this.lastname,
-          username: this.username,
-          email: this.email,
-          password: this.password
-        })
-          .then(response => {
-            if (response.status === 201) {
-              this.isLoading = false
-              this.$router.push({ path: '/login' })
-              Vue.$toast.open({
-                message: 'Votre compte à bien été créé, connectez-vous !',
-                type: 'success'
-              })
-            }
-            this.firstname = ''
-            this.lastname = ''
-            this.username = ''
-            this.email = ''
-            this.password = ''
+      this.isLoading = true
+      axios.post('http://localhost:8000/api/users', {
+        firstName: this.firstname,
+        lastName: this.lastname,
+        username: this.username,
+        email: this.email,
+        password: this.password
+      })
+        .then(response => {
+          this.isLoading = false
+          this.$router.push({ path: '/login' })
+          Vue.$toast.open({
+            message: 'Votre compte à bien été créé, connectez-vous !',
+            type: 'success'
           })
-      } catch ({ response }) {
-        console.log(response.violations.message)
-        this.isLoading = false
-        this.firstname = ''
-        this.lastname = ''
-        this.username = ''
-        this.email = ''
-        this.password = ''
-        this.passwordConfirm = ''
-        Vue.$toast.open({
-          message: 'error message from symfony',
-          type: 'error'
         })
-      }
+        .catch(error => {
+          this.isLoading = false
+          this.firstname = ''
+          this.lastname = ''
+          this.username = ''
+          this.email = ''
+          this.password = ''
+          this.passwordConfirm = ''
+          Vue.$toast.open({
+            message: error.response.data.violations[0].message,
+            type: 'error'
+          })
+        })
     }
   }
 }

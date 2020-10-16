@@ -34,11 +34,9 @@ const mutations = {
   },
   SHOW (state) {
     state.LoadingMatchs = true
-    console.log(state.LoadingMatchs)
   },
   HIDE (state) {
     state.LoadingMatchs = false
-    console.log(state.LoadingMatchs)
   }
 }
 

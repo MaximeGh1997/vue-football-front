@@ -100,10 +100,9 @@ export default {
           })
         })
         .catch(error => {
-          console.log(error)
           this.isLoading = false
           Vue.$toast.open({
-            message: 'error message from symfony',
+            message: error.response.data.violations[0].message,
             type: 'error'
           })
           this.oldPassword = ''

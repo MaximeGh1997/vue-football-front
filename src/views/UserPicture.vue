@@ -79,12 +79,11 @@ export default {
           this.isLoading = false
           this.$router.push({ path: '/profile/show' })
         })
-        .catch(response => {
-          console.log(response.violations.message)
+        .catch(error => {
           this.isLoading = false
           this.file = ''
           Vue.$toast.open({
-            message: 'error message from symfony',
+            message: error.response.data.violations[0].message,
             type: 'error'
           })
         })

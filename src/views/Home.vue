@@ -8,24 +8,24 @@
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item">
-        <img src="../assets/916fbf2f97c9c2fd3c1f.jpg" class="d-block w-100" alt="...">
+        <img src="../assets/2355696-49012690-2560-1440.jpg" class="d-block w-100" alt="...">
         <div class="carousel-caption d-none d-md-block">
-            <h5>UEFA EURO 2020, prêt pour le départ !</h5>
-            <p>Tout est prêt pour le grand départ de l'UEFA EURO 2020...</p>
+            <h5>EURO, les meilleurs buteurs par pays</h5>
+            <p>Les meilleurs buteurs de chaque pays ayant disputé au moins une phase finale de l'EURO....</p>
         </div>
         </div>
         <div class="carousel-item">
-        <img src="../assets/1471090.jpg" class="d-block w-100" alt="...">
+        <img src="../assets/Euro-2020-le-calendrier-complet-et-toutes-les-infos.jpg" class="d-block w-100" alt="...">
         <div class="carousel-caption d-none d-md-block">
-            <h5>Exclu : Iniesta raconte ses finales européennes</h5>
-            <p>Alors qu'il fête ses 36 ans, Andrés Iniesta revient en exclusivité pour UEFA.com...</p>
+            <h5>Le calendrier des matches de l'UEFA EURO 2020</h5>
+            <p>L'UEFA EURO 2020 se jouera du 11 juin au 11 juillet 2021...</p>
         </div>
         </div>
         <div class="carousel-item active">
-        <img src="../assets/2720308-56228190-2560-1440.jpg" class="d-block w-100" alt="...">
+        <img src="../assets/lilian_thuram_claude_makelele_france_.jpeg" class="d-block w-100" alt="...">
         <div class="carousel-caption d-none d-md-block">
-            <h5>Classiques de l'EURO : Allemagne - Pays-Bas 2019</h5>
-            <p>Revivez cette confrontation des éliminatoires européens de 2019...</p>
+            <h5>EURO : le joueur le plus âgé par équipe</h5>
+            <p>Quel est le joueur le plus âgé à avoir défendu sa sélection nationale à l'EURO ?...</p>
         </div>
         </div>
     </div>

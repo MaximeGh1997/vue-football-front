@@ -32,7 +32,6 @@ const getters = {
 const mutations = {
   RETRIEVE_TOKEN (state, token) {
     state.token = token
-    console.log(state.token)
   },
   DESTROY_TOKEN (state) {
     state.token = null
@@ -58,7 +57,6 @@ const actions = {
             message: 'Nom d\'utilisateur ou mot de passe incorrect !',
             type: 'error'
           })
-          console.log(error)
           reject(error)
         })
     })

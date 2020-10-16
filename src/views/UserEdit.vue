@@ -69,31 +69,28 @@ export default {
   methods: {
     updateProfile (e) {
       e.preventDefault()
-      try {
-        this.isLoading = true
-        axios.put('http://localhost:8000/api/users/' + this.user.id, {
-          firstName: this.user.firstname,
-          lastName: this.user.lastname,
-          email: this.user.email,
-          picture: 'http://127.0.0.1:8000/uploads/' + this.user.picture
-        })
-          .then(response => {
-            if (response.status === 200) {
-              this.isLoading = false
-              this.$router.push({ path: '/profile/show' })
-              Vue.$toast.open({
-                message: 'Votre profil a bien été modifié !',
-                type: 'success'
-              })
-            }
+      this.isLoading = true
+      axios.put('http://localhost:8000/api/users/' + this.user.id, {
+        firstName: this.user.firstname,
+        lastName: this.user.lastname,
+        email: this.user.email,
+        picture: 'http://127.0.0.1:8000/uploads/' + this.user.picture
+      })
+        .then(response => {
+          this.isLoading = false
+          this.$router.push({ path: '/profile/show' })
+          Vue.$toast.open({
+            message: 'Votre profil a bien été modifié !',
+            type: 'success'
           })
-      } catch ({ response }) {
-        this.isLoading = false
-        Vue.$toast.open({
-          message: 'error message from symfony',
-          type: 'error'
         })
-      }
+        .catch(error => {
+          this.isLoading = false
+          Vue.$toast.open({
+            message: error.response.data.violations[0].message,
+            type: 'error'
+          })
+        })
     }
   }
 }
