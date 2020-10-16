@@ -102,7 +102,7 @@ export default {
         .catch(error => {
           this.isLoading = false
           Vue.$toast.open({
-            message: error.response.data.violations[0].message,
+            message: error.response.data,
             type: 'error'
           })
           this.oldPassword = ''
