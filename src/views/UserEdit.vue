@@ -70,11 +70,11 @@ export default {
     updateProfile (e) {
       e.preventDefault()
       this.isLoading = true
-      axios.put('http://localhost:8000/api/users/' + this.user.id, {
+      axios.put('http://symfoot.maxime-gh.com/api/users/' + this.user.id, {
         firstName: this.user.firstname,
         lastName: this.user.lastname,
         email: this.user.email,
-        picture: 'http://127.0.0.1:8000/uploads/' + this.user.picture
+        picture: this.user.picture
       })
         .then(response => {
           this.isLoading = false

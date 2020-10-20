@@ -2,7 +2,7 @@
 <div class="container register min-vh-100">
     <div class="row align-items-center">
         <div class="col-md-2 text-center">
-            <img :src="'http://127.0.0.1:8000/uploads/'+ user.picture" :alt="user.username" class="avatar mb-3">
+            <img :src="'http://symfoot.maxime-gh.com/uploads/'+ user.picture" :alt="user.username" class="avatar mb-3">
         </div>
         <div class="col-md-10 text-center text-md-left">
             <h1 style="overflow: hidden;">{{user.firstname}} {{user.lastname}}</h1>
@@ -97,7 +97,7 @@ export default {
       userData.append('userId', this.token.decodeToken.id)
 
       if (confirm('Êtes-vous sûr de vouloir supprimer votre image de profil ?')) {
-        axios.post('http://localhost:8000/remove-picture', userData, {
+        axios.post('http://symfoot.maxime-gh.com/remove-picture', userData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }

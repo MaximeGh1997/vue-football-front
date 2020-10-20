@@ -90,7 +90,7 @@ export default {
         return
       }
       this.isLoading = true
-      axios.post('http://localhost:8000/api/users', {
+      axios.post('http://symfoot.maxime-gh.com/api/users', {
         firstName: this.firstname,
         lastName: this.lastname,
         username: this.username,

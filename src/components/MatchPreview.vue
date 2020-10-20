@@ -11,7 +11,8 @@
                         </div>
                 </div>
                 <div v-else class="col-4 align-self-center">
-                        <div class="row justify-content-center light-text">Groupe {{match.groupName.name}}</div>
+                        <div v-if="match.groupName" class="row justify-content-center light-text">Groupe {{match.groupName.name}}</div>
+                        <div v-if="match.stage" class="row justify-content-center light-text">{{match.stage.name}}</div>
                         <div class="row justify-content-center light-text">{{match.date.date | formatDate}}</div>
                         <div class="row justify-content-center light-text">{{match.stade.name}}</div>
                 </div>

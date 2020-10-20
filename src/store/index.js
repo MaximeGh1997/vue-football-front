@@ -13,7 +13,7 @@ import loader from './modules/loader'
 Vue.use(VueAxios, axios)
 Vue.use(Vuex)
 
-Vue.axios.defaults.baseURL = 'http://localhost:8000/api/'
+Vue.axios.defaults.baseURL = 'http://symfoot.maxime-gh.com/api/'
 
 export default new Vuex.Store({
   modules: {

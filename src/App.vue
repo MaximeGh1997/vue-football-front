@@ -19,7 +19,7 @@
         <ul class="nav ml-auto">
          <li v-if="loggedIn" class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="accountDropdownLink">
-               <img :src="'http://127.0.0.1:8000/uploads/'+ decodeToken.decodeToken.picture" alt="avatar de" class="avatar-mini">
+               <img :src="'http://symfoot.maxime-gh.com/uploads/'+ decodeToken.decodeToken.picture" alt="avatar de" class="avatar-mini">
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
                <router-link class="dropdown-item" :to="{name: 'ProfileShow'}">Mon profil</router-link>
@@ -38,15 +38,15 @@
       <div id="nav-burger">
         <i @click="openMenu" class="fas fa-times fa-4x close"></i>
         <ul>
-            <router-link class="nav-item nav-link" to="/">Accueil</router-link>
-            <router-link class="nav-item nav-link" to="/teams">Equipes</router-link>
-            <router-link class="nav-item nav-link" to="/stadiums">Stades</router-link>
-            <router-link class="nav-item nav-link" to="/groups">Classements & Résultats</router-link>
-            <router-link class="nav-item nav-link" to="/stages">Phase finale</router-link>
+            <li @click="openMenu"><router-link class="nav-item nav-link" to="/">Accueil</router-link></li>
+            <li @click="openMenu"><router-link class="nav-item nav-link" to="/teams">Equipes</router-link></li>
+            <li @click="openMenu"><router-link class="nav-item nav-link" to="/stadiums">Stades</router-link></li>
+            <li @click="openMenu"><router-link class="nav-item nav-link" to="/groups">Classements & Résultats</router-link></li>
+            <li @click="openMenu"><router-link class="nav-item nav-link" to="/stages">Phase finale</router-link></li>
         </ul>
         <div v-if="!loggedIn" id="links">
-            <router-link class="nav-item nav-link" to="/register">S'inscrire</router-link>
-            <router-link class="nav-item nav-link" to="/login">Se connecter</router-link>
+            <li @click="openMenu"><router-link class="nav-item nav-link" to="/register">S'inscrire</router-link></li>
+            <li @click="openMenu"><router-link class="nav-item nav-link" to="/login">Se connecter</router-link></li>
         </div>
       </div>
 
@@ -129,18 +129,6 @@ import { mapGetters, mapState } from 'vuex'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 
-const burgerLinks = document.querySelectorAll('#nav-burger ul a')
-// const burgerLinks2 = document.querySelectorAll('#nav-burger #links a')
-const nav = document.querySelectorAll('#nav-burger')[0]
-
-burgerLinks.forEach(link => {
-  console.log(link)
-  link.onclick = function () {
-    nav.classList.remove('active')
-    console.log('OK')
-  }
-})
-
 export default {
   data () {
     return {
@@ -163,7 +151,7 @@ export default {
   methods: {
     handleLogout () {
       this.$store.dispatch('authentication/destroyToken')
-      this.$router.push({ path: '/login' })
+      this.$router.push({ path: '/' })
     },
     openMenu () {
       const nav = document.querySelectorAll('#nav-burger')[0]
@@ -313,6 +301,11 @@ export default {
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
+}
+
+#nav-burger #links li{
+    text-decoration: none;
+    list-style: none;
 }
 
 #nav-burger #links a{

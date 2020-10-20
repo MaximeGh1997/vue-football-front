@@ -70,7 +70,7 @@ export default {
       formData.append('userId', this.token.decodeToken.id)
 
       this.isLoading = true
-      axios.post('http://localhost:8000/upload-picture', formData, {
+      axios.post('http://symfoot.maxime-gh.com/upload-picture', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

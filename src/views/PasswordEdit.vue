@@ -85,7 +85,7 @@ export default {
         return
       }
       this.isLoading = true
-      axios.post('http://localhost:8000/password-edit', passwordData, {
+      axios.post('http://symfoot.maxime-gh.com/password-edit', passwordData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

@@ -12,7 +12,7 @@
     <div class="box">
       <TableLoader :visible="loadingMatchs"/>
       <div v-if="matchs.length < 1" class="row mt-5 mb-5">
-            <h4 class="col-12 align-self-center text-center special-font">Cette phase n'a pas encore commencée</h4>
+            <h4 class="col-12 align-self-center text-center special-font">Cette phase n'a pas encore commencé</h4>
       </div>
       <MatchPreview v-for="match in matchs" :key="match.id" :match="match"/>
     </div>
@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     find () {
-      axios.get('http://localhost:8000/api/stages')
+      axios.get('http://symfoot.maxime-gh.com/api/stages')
         .then(response => {
           this.stages = response.data['hydra:member']
           this.stageActif = this.stages[0]

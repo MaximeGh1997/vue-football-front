@@ -5,7 +5,7 @@ import httpClient from '@/services/httpClient'
 
 Vue.use(VueAxios, axios)
 
-Vue.axios.defaults.baseURL = 'http://localhost:8000/api/'
+Vue.axios.defaults.baseURL = 'http://symfoot.maxime-gh.com/api/'
 
 const state = () => ({
   user: null
@@ -19,7 +19,7 @@ const mutations = {
 
 const actions = {
   findUser ({ commit }, payload) {
-    httpClient.get('http://localhost:8000/api/users/' + payload.id)
+    httpClient.get('http://symfoot.maxime-gh.com/api/users/' + payload.id)
       .then(response => { commit('SAVE_USER', response) })
       .catch(error => console.log(error.response))
   }

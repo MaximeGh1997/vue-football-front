@@ -4,8 +4,8 @@
     <div class="row justify-content-center mt-2 mb-2">
       <div class="col-8 comment">
         <p class="font-italic">
-          <span v-if="comment.author.id == decodeToken.decodeToken.id">Vous <span v-if="comment.rating">avez donné une note de {{comment.rating}}</span></span>
-          <span v-else>@{{comment.author.username}} <span v-if="comment.rating">a donné une note de {{comment.rating}}</span></span>
+          <span v-if="comment.author.id == decodeToken.decodeToken.id">Vous <span v-if="comment.rating">avez donné une note de {{comment.rating}}</span> sur le match {{comment.matchNbr.team1.name}} - {{comment.matchNbr.team2.name}}</span>
+          <span v-else>@{{comment.author.username}} <span v-if="comment.rating">a donné une note de {{comment.rating}}</span> sur le match {{comment.matchNbr.team1.name}} - {{comment.matchNbr.team2.name}}</span>
         </p>
         <p class="content">{{comment.content}}</p>
         <p class="light-text font-italic date">{{comment.createdAt | formatDate}}</p>
@@ -15,7 +15,7 @@
   <div v-else>
     <div v-if="comment.author.id == decodeToken.decodeToken.id" class="row justify-content-start justify-content-md-center mt-2 mb-2">
     <div class="col-auto align-self-center text-center">
-      <img :src="'http://127.0.0.1:8000/uploads/'+ comment.author.picture" :alt="comment.author.username" class="avatar-medium">
+      <img :src="'http://symfoot.maxime-gh.com/uploads/'+ comment.author.picture" :alt="comment.author.username" class="avatar-medium">
     </div>
     <div class="col-auto col-sm-6 comment" style="background-color: rgb(230, 230, 230);">
       <p class="font-italic">Vous <span v-if="comment.rating">avez donné une note de {{comment.rating}}</span></p>
@@ -35,7 +35,7 @@
       <p class="light-text font-italic date">{{comment.createdAt | formatDate}}</p>
     </div>
     <div class="col-auto align-self-center text-center">
-        <img :src="'http://127.0.0.1:8000/uploads/'+ comment.author.picture" :alt="comment.author.username" class="avatar-medium">
+        <img :src="'http://symfoot.maxime-gh.com/uploads/'+ comment.author.picture" :alt="comment.author.username" class="avatar-medium">
     </div>
   </div>
   </div>

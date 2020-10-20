@@ -11,7 +11,7 @@ function logout () {
 }
 
 function authenticate (payload) {
-  return Vue.axios.post('http://localhost:8000/api/login_check', {
+  return Vue.axios.post('http://symfoot.maxime-gh.com/api/login_check', {
     username: payload.username,
     password: payload.password
   })
