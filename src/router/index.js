@@ -82,11 +82,16 @@ const routes = [
     path: '/profile/picture',
     name: 'UserPicture',
     component: () => import(/* webpackChunkName: "about" */ '../views/UserPicture.vue')
+  },
+  {
+    path: '*',
+    name: 'NotFound',
+    component: () => import('../views/NotFoundPage.vue')
   }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 })

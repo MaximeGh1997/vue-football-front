@@ -101,24 +101,25 @@
 
             <ul class="list-unstyled">
               <li>
-                <a href="#!">Billets</a>
+                <a href="https://fr.uefa.com/uefaeuro-2020/ticketing/" target="blank">Billets</a>
               </li>
               <li>
-                <a href="#!">Boutique</a>
+                <a href="https://store.uefa.com/eu_fr/uefaeuro-2020.html" target="blank">Boutique</a>
               </li>
               <li>
-                <a href="#!">Guide de l'événement</a>
+                <a href="https://fr.uefa.com/uefaeuro-2020/event-guide/" target="blank">Guide de l'événement</a>
               </li>
               <li>
-                <a href="#!">UEFA.com</a>
+                <a href="https://fr.uefa.com/" target="blank">UEFA.com</a>
               </li>
             </ul>
 
           </div>
         </div>
       </div>
-      <div class="footer-copyright text-center py-3">© 2020 Copyright:
-        <a href="#"> Maxime Gh</a>
+      <div class="footer-copyright text-center py-3">
+        <p>Unofficial website created in the student context</p>
+        2020 - by<a href="http://www.maxime-gh.com" target="blank"> Maxime Gh</a>
       </div>
     </footer>
   </div>
