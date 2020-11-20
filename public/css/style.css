@@ -510,7 +510,7 @@ html,body{
 
 @media all and (max-width: 1000px) {
     .match-scoreboard #date{
-        font-size: 25px;
+        font-size: 18px;
     }
 
     #infos{

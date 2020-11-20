@@ -8,7 +8,7 @@
         <div class="row match-scoreboard justify-content-center">
             <div class="col-3 col-lg-2 align-self-center text-right d-none d-lg-block">{{match.team1.name}}</div>
             <div class="col-auto col-lg-2 align-self-center text-left"><img :src="match.team1.logo" alt="" class="logo-team"></div>
-            <div class="col-auto col-lg-4 align-self-center text-center">
+            <div class="col-4 col-lg-4 align-self-center text-center">
                 <div v-if="match.isPlayed">
                   {{match.scoreT1}} - {{match.scoreT2}}
                 </div>
