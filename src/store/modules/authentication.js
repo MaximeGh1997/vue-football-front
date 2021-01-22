@@ -5,7 +5,7 @@ import jwtDecode from 'jwt-decode'
 
 Vue.use(VueAxios, axios)
 
-Vue.axios.defaults.baseURL = 'http://symfoot.maxime-gh.com/api/'
+Vue.axios.defaults.baseURL = 'http://127.0.0.1:8000/api/'
 
 const state = () => ({
   token: window.localStorage.getItem('authToken') || null

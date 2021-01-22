@@ -70,7 +70,7 @@ export default {
     updateProfile (e) {
       e.preventDefault()
       this.isLoading = true
-      axios.put('http://symfoot.maxime-gh.com/api/users/' + this.user.id, {
+      axios.put('http://127.0.0.1:8000/api/users/' + this.user.id, {
         firstName: this.user.firstname,
         lastName: this.user.lastname,
         email: this.user.email,

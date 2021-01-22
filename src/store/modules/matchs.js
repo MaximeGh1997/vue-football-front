@@ -5,7 +5,7 @@ import httpClient from '@/services/httpClient'
 
 Vue.use(VueAxios, axios)
 
-Vue.axios.defaults.baseURL = 'http://symfoot.maxime-gh.com/api/'
+Vue.axios.defaults.baseURL = 'http://127.0.0.1:8000/api/'
 
 const state = () => ({
   GroupMatchs: [],
@@ -62,7 +62,7 @@ const actions = {
   },
 
   find ({ commit }, payload) {
-    httpClient.get('http://symfoot.maxime-gh.com/api/matchs/' + payload.id)
+    httpClient.get('http://127.0.0.1:8000/api/matchs/' + payload.id)
       .then(response => { commit('SAVE_MATCH', response) })
       .catch(error => console.log(error.response))
   },

@@ -82,12 +82,12 @@ export default {
   }),
   created () {
     this.find()
-    this.$store.dispatch('matchs/findByGroup', { id: 19 })
+    this.$store.dispatch('matchs/findByGroup', { id: 1 })
   },
   methods: {
     find () {
       this.isLoading = true
-      axios.get('http://symfoot.maxime-gh.com/api/groups')
+      axios.get('http://127.0.0.1:8000/api/groups')
         .then(response => {
           this.groups = response.data['hydra:member']
           this.groupActif = this.groups[0]
@@ -96,7 +96,7 @@ export default {
         .catch(error => console.log(error.response))
     },
     onChangeGroup (event) {
-      const pos = event.target.value - 19
+      const pos = event.target.value - 1
       this.groupActif = this.groups[pos]
       this.$store.dispatch('matchs/findByGroup', { id: event.target.value })
     }

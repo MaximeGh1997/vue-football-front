@@ -97,7 +97,7 @@ export default {
       userData.append('userId', this.token.decodeToken.id)
 
       if (confirm('Êtes-vous sûr de vouloir supprimer votre image de profil ?')) {
-        axios.post('http://symfoot.maxime-gh.com/remove-picture', userData, {
+        axios.post('http://127.0.0.1:8000/remove-picture', userData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }

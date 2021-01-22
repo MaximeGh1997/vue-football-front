@@ -80,7 +80,7 @@ export default {
       commentData.append('commentId', this.comment.id)
 
       if (confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?')) {
-        axios.post('http://symfoot.maxime-gh.com/remove-comment', commentData, {
+        axios.post('http://127.0.0.1:8000/remove-comment', commentData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }

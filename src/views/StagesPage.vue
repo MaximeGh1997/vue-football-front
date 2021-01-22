@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     find () {
-      axios.get('http://symfoot.maxime-gh.com/api/stages')
+      axios.get('http://127.0.0.1:8000/api/stages')
         .then(response => {
           this.stages = response.data['hydra:member']
           this.stageActif = this.stages[0]

@@ -19,11 +19,11 @@
         <ul class="nav ml-auto">
          <li v-if="loggedIn" class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="accountDropdownLink">
-               <img :src="'http://symfoot.maxime-gh.com/uploads/'+ decodeToken.decodeToken.picture" alt="avatar de" class="avatar-mini">
+               <img :src="'http://127.0.0.1:8000/uploads/'+ decodeToken.decodeToken.picture" alt="avatar de" class="avatar-mini">
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
                <router-link class="dropdown-item" :to="{name: 'ProfileShow'}">Mon profil</router-link>
-               <a v-if="decodeToken.decodeToken.roles.includes('ROLE_ADMIN')" href="http://www.symfoot.maxime-gh.com/admin/matchs" class="dropdown-item">Administration</a>
+               <a v-if="decodeToken.decodeToken.roles.includes('ROLE_ADMIN')" href="http://127.0.0.1:8000/admin/matchs" class="dropdown-item">Administration</a>
                <div class="dropdown-divider"></div>
                <a href="" class="dropdown-item" @click="handleLogout">Déconnexion</a>
             </div>

@@ -146,7 +146,7 @@ export default {
   },
   methods: {
     fetchMatch () {
-      httpClient.get('http://symfoot.maxime-gh.com/api/matchs/' + this.$route.params.id)
+      httpClient.get('http://127.0.0.1:8000/api/matchs/' + this.$route.params.id)
         .then(response => {
           this.match = response
         })

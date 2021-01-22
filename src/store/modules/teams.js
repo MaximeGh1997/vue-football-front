@@ -5,7 +5,7 @@ import httpClient from '@/services/httpClient'
 
 Vue.use(VueAxios, axios)
 
-Vue.axios.defaults.baseURL = 'http://symfoot.maxime-gh.com/api/'
+Vue.axios.defaults.baseURL = 'http://127.0.0.1:8000/api/'
 
 const state = () => ({
   teams: []
@@ -19,13 +19,13 @@ const mutations = {
 
 const actions = {
   findTeams ({ commit }) {
-    httpClient.get('http://symfoot.maxime-gh.com/api/teams')
+    httpClient.get('http://127.0.0.1:8000/api/teams')
       .then(response => { commit('SAVE_TEAMS', response['hydra:member']) })
       .catch(error => console.log(error.response))
   },
 
   findTeam (context, payload) {
-    return httpClient.get('http://symfoot.maxime-gh.com/api/teams/' + payload.id)
+    return httpClient.get('http://127.0.0.1:8000/api/teams/' + payload.id)
       .then(response => response)
       .catch(error => console.log(error.response))
   }
