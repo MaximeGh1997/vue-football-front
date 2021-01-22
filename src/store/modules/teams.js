@@ -8,12 +8,16 @@ Vue.use(VueAxios, axios)
 Vue.axios.defaults.baseURL = 'http://127.0.0.1:8000/api/'
 
 const state = () => ({
-  teams: []
+  teams: [],
+  team: null
 })
 
 const mutations = {
   SAVE_TEAMS (state, teams) {
     state.teams = teams
+  },
+  SAVE_TEAM (state, team) {
+    state.team = team
   }
 }
 
@@ -24,9 +28,9 @@ const actions = {
       .catch(error => console.log(error.response))
   },
 
-  findTeam (context, payload) {
+  findTeam ({ commit }, payload) {
     return httpClient.get('http://127.0.0.1:8000/api/teams/' + payload.id)
-      .then(response => response)
+      .then(response => { commit('SAVE_TEAM', response) })
       .catch(error => console.log(error.response))
   }
 }

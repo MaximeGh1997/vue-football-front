@@ -21,28 +21,17 @@
 
 <script>
 import Nl2br from 'vue-nl2br'
+import { mapState } from 'vuex'
 
 export default {
-  data () {
-    return {
-      team: []
-    }
-  },
+  computed: mapState({
+    team: state => state.teams.team
+  }),
   components: {
     Nl2br
   },
   created () {
-    this.initTeam()
-  },
-  methods: {
-    async initTeam () {
-      try {
-        const data = await this.$store.dispatch('teams/findTeam', { id: this.$route.params.id })
-        this.team = data
-      } catch (error) {
-        console.log(error)
-      }
-    }
+    this.$store.dispatch('teams/findTeam', { id: this.$route.params.id })
   }
 }
 </script>
